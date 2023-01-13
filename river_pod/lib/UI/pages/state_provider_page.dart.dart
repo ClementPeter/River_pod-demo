@@ -121,6 +121,7 @@ class StateProviderPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.headline5,
             ),
           ),
+             const SizedBox(height: 20),
           const Text(
             "AUTOFOCUS makes the STATE PROVIDER refresh to the default on screen pop",
             // style: Theme.of(context).textTheme.bodyText1,

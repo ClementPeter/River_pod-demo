@@ -23,19 +23,25 @@ class FutureProviderPage extends ConsumerWidget {
         title: const Text("Future Provider"),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: suggestionReference.when(data: ((data) {
-              Text(data.activity!);
-            }), error: ((error, stackTrace) {
-              Text(error.toString());
-            }), loading: () {
-              return const CircularProgressIndicator();
-            }),
-          )
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: suggestionReference.when(data: ((data) {
+                return Text(data.activity!);
+              }), error: ((error, stackTrace) {
+                return Text(
+                  error.toString(),
+                  textAlign: TextAlign.center,
+                );
+              }), loading: () {
+                return const CircularProgressIndicator();
+              }),
+            )
+          ],
+        ),
       ),
     );
   }

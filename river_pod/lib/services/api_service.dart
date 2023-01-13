@@ -12,11 +12,10 @@ class ApiService {
   getSuggestion() async {
     try {
       var response = await Dio().get('http://www.boredapi.com/api/activity/');
-      return suggestionFromJson(jsonDecode(response.data));
+      return suggestionFromJson(response.data);
       //print(response);
     } catch (e) {
       print(e);
     }
   }
 }
- 
