@@ -4,7 +4,8 @@ import 'package:river_pod/home.dart';
 
 void main() {
   runApp(const
-      // STEP 1- For widgets to be able to read providers, we need to wrap the entire application in a "ProviderScope" widget.
+      // STEP 1- For widgets to be able to read providers,
+      //we need to wrap the entire application in a "ProviderScope" widget.
       ProviderScope(child: MyApp()));
 }
 
