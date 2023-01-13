@@ -28,7 +28,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //Better/ Preferred way of passing value to STATEPROVIDER - by extending ConsumerWidget
 //STATEPROVIDER : a type of provider used to update changes in the value
-//add AUTODISPOSE to refresh the provider to default value of the provider
+//add AUTODISPOSE to refresh the provider on screen pop to default value of the provider
 final valueStateProvider = StateProvider.autoDispose<int>(((ref) => 50));
 
 class StateProviderPage extends ConsumerWidget {
@@ -37,7 +37,8 @@ class StateProviderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final value = ref.watch(valueStateProvider); //returns the value by the provider and rebuild if the value changes
+    final value = ref.watch(
+        valueStateProvider); //returns the value by the provider and rebuild if the value changes
 
     //.LISTEN : method to listening to provider help and perfomm specific action based on listend value
 
@@ -68,7 +69,6 @@ class StateProviderPage extends ConsumerWidget {
           ElevatedButton(
             onPressed: () {
               ref.read(valueStateProvider.notifier).state++;
-    
             },
             child: const Text("Increment"),
           ),

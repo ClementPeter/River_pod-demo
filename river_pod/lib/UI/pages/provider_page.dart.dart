@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //STEP2 - Create our PROVIDER ; provider that creates read only value
 //pass datatype and value we want to reference or pass around in our App
 
-final valueProvider = Provider<int>((ref) => 42);
+// final valueProvider = Provider<int>((ref) => 42);
 
 // class ProviderPage extends StatelessWidget {
 //   const ProviderPage({this.color, super.key});
@@ -34,7 +34,16 @@ final valueProvider = Provider<int>((ref) => 42);
 //   }
 // }
 
+
 //Another way of Reading PROVIDER Value using "CONSUMER WIDGET" - wrap the provider with Consumer
+
+
+//STEP2 - Create our PROVIDER ; provider that creates read only value
+//pass datatype and value we want to reference or pass around in our App
+
+final valueProvider = Provider<int>((ref) => 42);
+
+
 class ProviderPage extends ConsumerWidget {
   const ProviderPage({this.color, super.key});
   final Color? color;
