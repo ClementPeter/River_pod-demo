@@ -89,7 +89,7 @@ class StateProviderPage extends ConsumerWidget {
     final value = ref.watch(
         valueStateProvider); //returns the value by the provider and rebuild if the value changes
 
-    //.LISTEN : method to listenc to provider help and perfomm specific action based on listend value
+    //.LISTEN : method to listen to provider help and perfomm specific action based on listend value
 
     ref.listen<int>(valueStateProvider, (previous, current) {
       if (current == 65) {

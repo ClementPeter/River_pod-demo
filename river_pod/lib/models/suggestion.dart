@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-Suggestion? suggestionFromJson(String str) =>
+Suggestion suggestionFromJson(String str) =>
     Suggestion.fromJson(json.decode(str));
 
 class Suggestion {
   Suggestion({
-    this.activity,
+     this.activity,
   });
 
   String? activity;

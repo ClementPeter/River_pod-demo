@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/models/suggestion.dart';
@@ -9,15 +7,13 @@ final apiServiceProvider = Provider<ApiService>(((ref) => ApiService()));
 
 //Http request using Dio and returning model
 class ApiService {
-  getSuggestion() async {
+  Future<Suggestion> getSuggestion() async {
     try {
       var response = await Dio().get('http://www.boredapi.com/api/activity/');
-      return suggestionFromJson(response.data);
-      //print(response);
+      print(response);
+      return Suggestion.fromJson(response.data);
     } catch (e) {
-      print(e);
-      throw(e);
-      
+      throw Exception('Error getting suggestion');
     }
   }
 }
