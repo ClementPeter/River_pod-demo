@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-//STATEPROVIDER : a type of provider used to update changes in the value
+// //STATEPROVIDER : a type of provider used to update changes in the value
 // final valueStateProvider = StateProvider(((ref) => 50));
 
 // class StateProviderPage extends StatelessWidget {
@@ -13,22 +13,70 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //     return Scaffold(
 //       appBar: AppBar(
 //         backgroundColor: color,
-//         title: Text("State Provider"),
+//         title: const Text("State Provider"),
 //         centerTitle: true,
 //       ),
-//       body: Consumer(builder: (BuildContext context, WidgetRef ref, child) {
-//         return Center(
-//           child: Text("This is the value from State Provider ${ref.watch(valueStateProvider)} and it can be updated since the provider type is of STATEPROVIDER") ,
-//         )
-//       },),
+//       body: Consumer(
+//         builder: (BuildContext context, WidgetRef ref, child) {
+//           return Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               const Text(
+//                 'Demoing STATE NOTIFIER PROVIDER alongside methods like .read .invalidate ',
+//               ),
+//               const SizedBox(height: 20),
+//               Center(
+//                 child: Text(
+//                   "This is the value from State Provider ${ref.watch(valueStateProvider)} and it can be updated since the provider type is of STATEPROVIDER",
+//                   textAlign: TextAlign.center,
+//                   style: Theme.of(context).textTheme.headline5,
+//                 ),
+//               ),
+//               ElevatedButton(
+//                 onPressed: () {
+//                   ref.read(valueStateProvider.notifier).state++;
+//                 },
+//                 child: const Text("Increment"),
+//               ),
+//               const SizedBox(height: 20),
+//               //Decrementing Counter and reading the provider with notifier and state--
+//               ElevatedButton(
+//                 onPressed: () {
+//                   ref.read(valueStateProvider.notifier).state--;
+//                 },
+//                 child: const Text("Decrement"),
+//               ),
+//               const SizedBox(height: 20),
+//               //ref.invalidate helps to refresh the provider to the default value
+//               ElevatedButton(
+//                 onPressed: () {
+//                   ref.invalidate(valueStateProvider);
+//                 },
+//                 child: const Text("Invalidate"),
+//               )
+//             ],
+//           );
+//         },
+//       ),
 //     );
-
 //   }
 // }
 
-//Better/ Preferred way of passing value to STATEPROVIDER - by extending ConsumerWidget
-//STATEPROVIDER : a type of provider used to update changes in the value
-//add AUTODISPOSE to refresh the provider on screen pop to default value of the provider
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// //Better/ Preferred way of passing value to STATEPROVIDER - by extending ConsumerWidget
+
+// //STATEPROVIDER : a type of provider used to update changes in the value
+// //add AUTODISPOSE to refresh the provider on screen pop to default value of the provider
 final valueStateProvider = StateProvider.autoDispose<int>(((ref) => 50));
 
 class StateProviderPage extends ConsumerWidget {
@@ -40,7 +88,7 @@ class StateProviderPage extends ConsumerWidget {
     final value = ref.watch(
         valueStateProvider); //returns the value by the provider and rebuild if the value changes
 
-    //.LISTEN : method to listening to provider help and perfomm specific action based on listend value
+    //.LISTEN : method to listenc to provider help and perfomm specific action based on listend value
 
     ref.listen<int>(valueStateProvider, (previous, current) {
       if (current == 65) {
@@ -58,19 +106,45 @@ class StateProviderPage extends ConsumerWidget {
         centerTitle: true,
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Text(
+            'Demoing STATE NOTIFIER PROVIDER alongside methods like .read .invalidate .listen',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
           Center(
             child: Text(
-              "This is the value from State Provider is $value and the value can be updated since the provider type is of STATE PROVIDER",
+              "This is the value from State Provider is\n $value \n and the value can be updated since the provider type is of STATE PROVIDER",
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline5,
             ),
           ),
-          //Incrementing Counter and reading the provider
+          const Text(
+            "AUTOFOCUS makes the STATE PROVIDER refresh to the default on screen pop",
+            // style: Theme.of(context).textTheme.bodyText1,
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            ".listen makes the STATE PROVIDER listen and perform and event based on the state provider value",
+            textAlign: TextAlign.center,
+            // style: Theme.of(context).textTheme.bodyText1,
+          ),
+          const SizedBox(height: 20),
+          //Incrementing Counter and reading the provider with notifier and state++
           ElevatedButton(
             onPressed: () {
               ref.read(valueStateProvider.notifier).state++;
             },
             child: const Text("Increment"),
+          ),
+          const SizedBox(height: 20),
+          //Decrementing Counter and reading the provider with notifier and state--
+          ElevatedButton(
+            onPressed: () {
+              ref.read(valueStateProvider.notifier).state--;
+            },
+            child: const Text("Decrement"),
           ),
           const SizedBox(height: 20),
           //ref.invalidate helps to refresh the provider to the default value

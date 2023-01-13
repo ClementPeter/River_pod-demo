@@ -34,15 +34,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //   }
 // }
 
-
 //Another way of Reading PROVIDER Value using "CONSUMER WIDGET" - wrap the provider with Consumer
-
 
 //STEP2 - Create our PROVIDER ; provider that creates read only value
 //pass datatype and value we want to reference or pass around in our App
 
 final valueProvider = Provider<int>((ref) => 42);
-
 
 class ProviderPage extends ConsumerWidget {
   const ProviderPage({this.color, super.key});
@@ -56,10 +53,23 @@ class ProviderPage extends ConsumerWidget {
         centerTitle: true,
       ),
       //STEP 3 Read provider value using Consumer widget
-      body: Center(
-        child: Text(
-          "This is the value in the provider ${ref.watch(valueProvider)}",
-          style: Theme.of(context).textTheme.headline5,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "PROVIDER works by providing /supplying a READ-ONLY variable through out our APP",
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+            Center(
+              child: Text(
+                "This is the value in the provider ${ref.watch(valueProvider)}",
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ),
+          ],
         ),
       ),
     );
