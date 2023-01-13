@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return FutureProvider(
+                      return FutureProviderPage(
                         color: Colors.red,
                       );
                     },
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return StreamProvider(
+                      return StreamProviderPage(
                         color: Colors.green,
                       );
                     },

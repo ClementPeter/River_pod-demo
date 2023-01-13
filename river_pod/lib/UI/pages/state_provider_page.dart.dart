@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 // //STATEPROVIDER : a type of provider used to update changes in the value
 // final valueStateProvider = StateProvider(((ref) => 50));
 

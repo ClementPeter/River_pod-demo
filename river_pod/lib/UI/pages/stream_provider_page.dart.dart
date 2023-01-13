@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:river_pod/home.dart';
 
-class StreamProvider extends StatelessWidget {
-  const StreamProvider({this.color, super.key});
+class StreamProviderPage extends StatelessWidget {
+  const StreamProviderPage({this.color, super.key});
   final Color? color;
 
   @override
