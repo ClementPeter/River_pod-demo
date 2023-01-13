@@ -16,6 +16,8 @@ class ApiService {
       //print(response);
     } catch (e) {
       print(e);
+      throw(e);
+      
     }
   }
 }

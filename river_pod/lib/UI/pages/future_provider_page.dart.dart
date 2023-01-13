@@ -30,10 +30,14 @@ class FutureProviderPage extends ConsumerWidget {
           children: [
             Center(
               child: suggestionReference.when(data: ((data) {
-                return Text(data.activity!);
+                return Text(
+                  data.activity!,
+                  style: Theme.of(context).textTheme.headline5,
+                );
               }), error: ((error, stackTrace) {
                 return Text(
                   error.toString(),
+                  style: Theme.of(context).textTheme.headline5,
                   textAlign: TextAlign.center,
                 );
               }), loading: () {
