@@ -5,7 +5,7 @@ import 'package:river_pod/services/api_service.dart';
 
 //Create FutureProvider to read the ApiService Provider - autoDispose triggers the ApiServiceProvder to bring new Data
 final suggestionFutureProvider = FutureProvider<Suggestion>((ref) {
-  final apiService = ref.watch(apiServiceProvider);
+  final apiService = ref.watch(apiServiceProvider); //watch the provider
   return apiService.getSuggestion();
 });
 
@@ -27,6 +27,8 @@ class FutureProviderPage extends ConsumerWidget {
         padding: const EdgeInsets.all(10.0),
         child: RefreshIndicator(
           onRefresh: () {
+            //.refresh forces a provider to check its state to see if the value is set to the default value
+            //. refresh in this case triggers the Provider to make a new network request indirectly
             return ref.refresh(suggestionFutureProvider.future);
           },
           child: ListView(
@@ -47,6 +49,12 @@ class FutureProviderPage extends ConsumerWidget {
                 }), loading: () {
                   return const CircularProgressIndicator();
                 }),
+              ),
+              const SizedBox(height: 50),
+              Text(
+                "Pull to refresh in order to see random activity you can do when your bored",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText2,
               )
             ],
           ),

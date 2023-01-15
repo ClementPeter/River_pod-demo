@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-class StateNotifierProviderPage extends StatelessWidget {
-  const StateNotifierProviderPage({this.color, super.key});
-
+class ChangeNotifierProviderPage extends StatelessWidget {
+  const ChangeNotifierProviderPage({this.color, super.key});
   final Color? color;
 
   @override
@@ -11,7 +9,7 @@ class StateNotifierProviderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color,
-        title: const Text("State Notifier Provider"),
+        title: const Text(" Change Notifier Provider"),
         centerTitle: true,
       ),
     );

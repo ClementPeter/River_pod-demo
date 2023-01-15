@@ -9,7 +9,7 @@ Suggestion suggestionFromJson(String str) =>
 
 class Suggestion {
   Suggestion({
-     this.activity,
+    this.activity,
   });
 
   String? activity;

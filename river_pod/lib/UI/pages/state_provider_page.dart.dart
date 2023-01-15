@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 // //STATEPROVIDER : a type of provider used to update changes in the value
 // final valueStateProvider = StateProvider(((ref) => 50));
 
@@ -110,7 +109,7 @@ class StateProviderPage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Demoing STATE NOTIFIER PROVIDER alongside methods like .read .invalidate .listen',
+            'Demo of STATE NOTIFIER PROVIDER alongside methods like .read .invalidate .listen',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
@@ -121,9 +120,10 @@ class StateProviderPage extends ConsumerWidget {
               style: Theme.of(context).textTheme.headline5,
             ),
           ),
-             const SizedBox(height: 20),
+          const SizedBox(height: 20),
           const Text(
             "AUTOFOCUS makes the STATE PROVIDER refresh to the default on screen pop",
+            textAlign: TextAlign.center,
             // style: Theme.of(context).textTheme.bodyText1,
           ),
           const SizedBox(height: 20),

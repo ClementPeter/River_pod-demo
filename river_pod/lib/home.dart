@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:river_pod/UI/pages/change_notifier_page.dart.dart';
+import 'package:river_pod/UI/pages/change_notifier_provider_page.dart.dart';
 import 'package:river_pod/UI/pages/future_provider_page.dart.dart';
 import 'package:river_pod/UI/pages/provider_page.dart.dart';
 import 'package:river_pod/UI/pages/state_notifier_provider_page.dart.dart';
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return StreamProviderPage(
+                      return const StreamProviderPage(
                         color: Colors.green,
                       );
                     },
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ChangeNotifierProvider(
+                      return const ChangeNotifierProviderPage(
                         color: Colors.black,
                       );
                     },
@@ -125,13 +125,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return StateNotifierProviderPage(color: Colors.purple);
+                      return const StateNotifierProviderPage(color: Colors.purple);
                     },
                   ),
                 );
               },
             ),
-            //Spacer()
+            
           ],
         ),
       ),
