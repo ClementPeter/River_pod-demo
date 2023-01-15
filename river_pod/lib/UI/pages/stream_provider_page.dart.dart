@@ -25,7 +25,20 @@ class StreamProviderPage extends ConsumerWidget {
       body: Center(
         child: streamReference.when(
           data: (data) {
-            return Text(data);
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Using a counter to demo a stream of value to be handled by the StreamProvider in Riverpod",
+                  textAlign: TextAlign.center,
+                  // style: Theme.of(context).textTheme.bodyText1,
+                ),
+                Text(
+                  data.toString(),
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ],
+            );
           },
           error: (error, _) {
             return Text(
