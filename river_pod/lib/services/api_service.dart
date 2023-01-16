@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/models/suggestion.dart';
 
-//Create a provider to provide ApiService as a class
+//Create a provider to provide ApiService as a class - Used to Demo FutureProvider in future_provider_page.dart
 final apiServiceProvider = Provider<ApiService>(((ref) => ApiService()));
 
 //Http request using Dio and returning model
@@ -17,3 +17,4 @@ class ApiService {
     }
   }
 }
+
