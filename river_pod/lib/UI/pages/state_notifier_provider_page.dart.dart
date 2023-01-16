@@ -10,8 +10,7 @@ class StateNotifierProviderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartStateNotifier = ref.watch(cartStateNotifierProvider);
-
+    final cart = ref.watch(cartStateNotifierProvider);
     // final cartNotifier = ref.watch(cartNotifierProvider); //Watching the provider and rebuilding if there is any chnages
     return Scaffold(
       appBar: AppBar(
@@ -37,11 +36,10 @@ class StateNotifierProviderPage extends ConsumerWidget {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              ...cartStateNotifier
-                                  .map((item) => Text(item.title)),
+                              ...cart.map((item) => Text(item.title)),
                               const SizedBox(height: 15),
                               Text(
-                                "Total \$${cartStateNotifier.fold(0, (sum, element) => sum + element.price.toInt())}",
+                                "Total \$${cart.fold(0, (sum, element) => sum + element.price.toInt())}",
                                 style: Theme.of(context).textTheme.headline5,
                               ),
                             ],
@@ -50,7 +48,7 @@ class StateNotifierProviderPage extends ConsumerWidget {
                             TextButton(
                               onPressed: (() {
                                 ref
-                                    .watch(cartStateNotifierProvider.notifier)
+                                    .read(cartStateNotifierProvider.notifier)
                                     .clearCart();
                               }),
                               child: const Text("Clear"),
@@ -71,10 +69,10 @@ class StateNotifierProviderPage extends ConsumerWidget {
                     color: Colors.red,
                     shape: BoxShape.circle,
                   ),
-                  // constraints:                      const BoxConstraints(minHeight: 16, minWidth: 16),
+                  // constraints: const BoxConstraints(minHeight: 16, minWidth: 16),
                   child: Center(
                     child: Text(
-                      cartStateNotifier.length
+                      cart.length
                           .toString(), //passing the lenght of the cart with the provider above
                       style: const TextStyle(
                         color: Colors.white,
