@@ -8,12 +8,11 @@ class StateNotifierProviderPage extends ConsumerWidget {
 
   final Color? color;
 
- @override
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cartStateNotifier = ref.watch(cartStateNotifierProvider);
 
-    final cartStateNotifier = ref.watch(cartNotifierProvider);
-
-   // final cartNotifier = ref.watch(cartNotifierProvider); //Watching the provider and rebuilding if there is any chnages
+    // final cartNotifier = ref.watch(cartNotifierProvider); //Watching the provider and rebuilding if there is any chnages
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color,
@@ -38,19 +37,21 @@ class StateNotifierProviderPage extends ConsumerWidget {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // ...cartNotifier.cart
-                              //     .map((item) => Text(item.title)),
-                              // const SizedBox(height: 15),
-                              // Text(
-                              //   "Total \$${cartNotifier.cart.fold(0, (sum, element) => sum + element.price.toInt())}",
-                              //   style: Theme.of(context).textTheme.headline5,
-                              // ),
+                              ...cartStateNotifier
+                                  .map((item) => Text(item.title)),
+                              const SizedBox(height: 15),
+                              Text(
+                                "Total \$${cartStateNotifier.fold(0, (sum, element) => sum + element.price.toInt())}",
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
                             ],
                           ),
                           actions: [
                             TextButton(
                               onPressed: (() {
-                               // ref.watch(cartNotifierProvider.notifier)  .clear();
+                                ref
+                                    .watch(cartStateNotifierProvider.notifier)
+                                    .clearCart();
                               }),
                               child: const Text("Clear"),
                             )
@@ -72,13 +73,14 @@ class StateNotifierProviderPage extends ConsumerWidget {
                   ),
                   // constraints:                      const BoxConstraints(minHeight: 16, minWidth: 16),
                   child: Center(
-                    // child: Text(
-                    //   cartNotifier.cart.length                          .toString(), //passing the lenght of the cart with the provider above
-                    //   style: const TextStyle(
-                    //     color: Colors.white,
-                    //     fontSize: 12,
-                    //   ),
-                    // ),
+                    child: Text(
+                      cartStateNotifier.length
+                          .toString(), //passing the lenght of the cart with the provider above
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 ),
               )
@@ -104,7 +106,10 @@ class StateNotifierProviderPage extends ConsumerWidget {
                         //.read is more ideal here than .watch
                         //cos we dont need to listen to addProduct method in cartNotifier.dart
                         //.watch triggers a rebuild of the Icon which is expensive in terms of App performance
-                        //ref.read(cartNotifierProvider.notifier)                            .addProduct(product);
+                        ref
+                            .read(cartStateNotifierProvider.notifier)
+                            .addProduct(product)
+                            .addProduct(product);
                       },
                       icon: const Icon(Icons.add_shopping_cart),
                     ),
@@ -118,7 +123,3 @@ class StateNotifierProviderPage extends ConsumerWidget {
     );
   }
 }
-
-
-
-
