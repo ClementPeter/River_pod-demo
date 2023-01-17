@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/home.dart';
 
 void main() {
-  runApp(const
-      // STEP 1- For widgets to be able to read providers,
-      //we need to wrap the entire application in a "ProviderScope" widget.
-      ProviderScope(child: MyApp()));
+  runApp(
+    const
+    // STEP 1- For widgets to be able to read providers,
+    //we need to wrap the entire application in a "ProviderScope" widget.
+    ProviderScope(child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
