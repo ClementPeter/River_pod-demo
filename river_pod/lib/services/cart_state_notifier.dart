@@ -39,7 +39,7 @@ class CartStateNotifier extends StateNotifier<List<Product>> {
 
 // So assume Product is pizza. The addProduct method for example everytime you call it helps you add one box of pizza to the List of pizza in your state.
 
-//So if you have been showing a List of pizza in your UI let’s say Pizza 1-10, everytime you add a pizza,it increases by 1 and the changes reflect in your UI.
+// So if you have been showing a List of pizza in your UI let’s say Pizza 1-10, everytime you add a pizza,it increases by 1 and the changes reflect in your UI.
 
 // And also the .family modifier isn’t for future provider alone.
 
