@@ -633,21 +633,9 @@ final _products = [
 ];
 
 //Riverpod-PROVIDER to provide a list of private product
-// final productProvider = Provider<List<Product>>((ref) {
-//   //return _products;
-//   //for the sorting mechanism
-//   final sortType = ref.watch(productSortTypeProvider);
-//   //
-//   switch(ProductSortType sortType){
-//     case ProductSortType.name:
-//      return _products.sort
-
-//   }
-
-// });
-
 final productsProvider = Provider<List<Product>>(
   (ref) {
+    //return _products;
     final sortType = ref.watch(productSortTypeProvider);
     //
     switch (sortType) {
@@ -657,7 +645,6 @@ final productsProvider = Provider<List<Product>>(
 
       case ProductSortType.price:
         _products.sort(((a, b) => a.price.compareTo(b.price)));
-
         return _products;
     }
   },
@@ -708,7 +695,6 @@ class MyApp extends ConsumerWidget {
                 ),
                 DropdownMenuItem(
                   value: ProductSortType.price,
-                  //  value: ref.read(productSortTypeProvider),
                   child: Icon(Icons.price_change_outlined),
                 ),
               ],
@@ -732,78 +718,3 @@ class MyApp extends ConsumerWidget {
     );
   }
 }
-
-
-// class MyHomePage extends ConsumerWidget {
-//   const MyHomePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final individualProduct = ref.watch(productProvider);
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("State Provider & Provider"),
-//         centerTitle: true,
-//         actions: [
-//           const SizedBox(width: 30),
-//           DropdownButton<ProductSortType>(
-//             // When the sort type changes, this will rebuild the dropdown
-//             // to update the icon shown.
-//             // value: ref.watch(productSortTypeProvider),
-//             // When the user interacts with the dropdown, we update the provider state.
-//             onChanged: ((value) {
-//               print(value);
-//               ref.read(productSortTypeProvider.notifier).state != value;
-//             }),
-
-//             items: [
-//               // ...
-//               DropdownMenuItem(
-//                 value: ref.read(productSortTypeProvider),
-//                 child: const Icon(Icons.abc),
-//               ),
-//               DropdownMenuItem(
-//                 value: ref.read(productSortTypeProvider),
-//                 child: const Icon(Icons.price_change_outlined),
-//               ),
-//             ],
-//           ),
-//           // DropdownButton<ProductSortType>(
-//           //   // When the sort type changes, this will rebuild the dropdown to update the icon shown.
-//           //   value: ref.watch(productSortTypeProvider),
-//           //   hint: const Text("Sort by"),
-
-//           //   onChanged: (value) {
-//           //     //We read here cos we want to fins out the drop down that was clicked
-//           //     //we dont WATCH here cos we dont want to listen to this and listening trigger a rebuild which we dont want
-//           //     ref.read(productSortTypeProvider.notifier).state = value!;
-//           //   },
-//           //   items: [
-//           //     DropdownMenuItem(
-//           //       value: "",
-//           //       child: const Icon(Icons.abc),
-//           //     ),
-//           // DropdownMenuItem(
-//           //   value: "",
-//           //   //  value: ref.read(productSortTypeProvider),
-//           //   child: const Icon(Icons.price_change_outlined),
-//           // ),
-//           //   ],
-//           //   // items:
-//           // ),
-//           const SizedBox(width: 30)
-//         ],
-//       ),
-//       body: ListView.builder(
-//         itemCount: individualProduct.length,
-//         itemBuilder: (BuildContext context, int index) {
-//           final data = individualProduct[index];
-//           return ListTile(
-//             title: Text(data.name),
-//             trailing: Text("${data.price}"),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
