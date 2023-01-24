@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/models/product.dart';
-import 'package:river_pod/services/cart_notifier.dart';
+import 'package:river_pod/services/cart_change_notifier.dart';
 
 //Demo of ChangeNotiferProvider to add product to cart
 class ChangeNotifierProviderPage extends ConsumerWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/models/product.dart';
+//ChangeNotifierProvider - A complex state object that requires mutability
 
 //provider to extend cart Notifier using ChangeNotifierProvider - Used to Demo ChangeNotifierProvider in change_notifier_provider_page.dart
 final cartNotifierProvider = ChangeNotifierProvider<CartNotifier>((ref) {
