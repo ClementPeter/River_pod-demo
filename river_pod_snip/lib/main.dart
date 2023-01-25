@@ -586,7 +586,7 @@
 //
 //
 //
-////
+//
 ///
 //
 //
@@ -632,11 +632,13 @@ final _products = [
   Product(name: 'Vegetable', price: 3),
 ];
 
-//Riverpod-PROVIDER to provide a list of private product
+//Riverpod-PROVIDER to provide a  sorted list of product based on the selected dropdown
 final productsProvider = Provider<List<Product>>(
   (ref) {
     //return _products;
-    final sortType = ref.watch(productSortTypeProvider);
+    
+    /*for the sorting mechanism*/
+    final sortType = ref.watch(productSortTypeProvider); //watching the enum provider
     //
     switch (sortType) {
       case ProductSortType.name:
@@ -644,8 +646,7 @@ final productsProvider = Provider<List<Product>>(
         return _products;
 
       case ProductSortType.price:
-        _products.sort(((a, b) => a.price.compareTo(b.price)));
-        return _products;
+        return _products..sort(((a, b) => a.price.compareTo(b.price))); //Sane as above but using cascade operator
     }
   },
 );
@@ -656,7 +657,7 @@ enum ProductSortType {
   price,
 }
 
-//Creating a StateProvider from riverpod to sync the state of the dropdown from our enum and "productProvider"
+//Creating a StateProvider from riverpod to sync the state of the dropdown button from our productSortTypeProvider enum ""
 final productSortTypeProvider = StateProvider<ProductSortType>((ref) {
   return ProductSortType.name; //retruns .name on every first instance
 });
@@ -674,7 +675,7 @@ class MyApp extends ConsumerWidget {
       themeMode: ThemeMode.dark,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("State Provider & Provider"),
+          title: const Text("Cart Filter"),
           centerTitle: true,
           actions: [
             const SizedBox(width: 30),
@@ -718,3 +719,55 @@ class MyApp extends ConsumerWidget {
     );
   }
 }
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////
+///
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+///
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// DEMO Example 5 Inventory App
+
+// import 'package:flutter/material.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// @immutable
+// class Person{
+//   final String? name;
+//   final int? age;
+//   final String uuid;
+//   Person({required this.name, required this.age, this.uuid}) : uuid =uuid ?? uuid().;
+// }
+
