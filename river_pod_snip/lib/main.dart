@@ -646,7 +646,7 @@ final productsProvider = Provider<List<Product>>(
         return _products;
 
       case ProductSortType.price:
-        return _products..sort(((a, b) => a.price.compareTo(b.price))); //Sane as above but using cascade operator
+        return _products..sort(((a, b) => a.price.compareTo(b.price))); //Same as above but using cascade operator
     }
   },
 );
@@ -658,6 +658,7 @@ enum ProductSortType {
 }
 
 //Creating a StateProvider from riverpod to sync the state of the dropdown button from our productSortTypeProvider enum ""
+//StateProvider providing the current eum value for the "ProductSortType"
 final productSortTypeProvider = StateProvider<ProductSortType>((ref) {
   return ProductSortType.name; //retruns .name on every first instance
 });
