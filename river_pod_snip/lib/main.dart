@@ -769,13 +769,6 @@ import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
-}
 
 //creating an immutable class
 @immutable
@@ -899,6 +892,14 @@ createOrUpdatePersonDialog(BuildContext context, [Person? exixtingPerson]) {
       });
 }
 
+
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+} 
 //Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
