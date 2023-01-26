@@ -7,6 +7,7 @@ final cartStateNotifierProvider =
   return CartStateNotifier();
 });
 
+
 //State notifier is more preferred to Change Provider Notifier
 class CartStateNotifier extends StateNotifier<List<Product>> {
   CartStateNotifier() : super([]);
@@ -19,6 +20,8 @@ class CartStateNotifier extends StateNotifier<List<Product>> {
     state = [];
   }
 }
+
+
 
 
 
