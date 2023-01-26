@@ -761,9 +761,21 @@
 // DEMO Example 5 Inventory App
 
 import 'dart:collection';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
+
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
 //creating an immutable class
 @immutable
@@ -774,7 +786,7 @@ class Person {
 
   Person({required this.name, required this.age, String? uuid})
       : uuid = uuid ?? const Uuid().v4();
-  
+
   //function used to update name and age
   Person updated([String? name, int? age]) => Person(
         name: name ?? this.name,
@@ -806,7 +818,7 @@ class Person {
 
 //ChangeNotifierProvider
 final peopleProvider = ChangeNotifierProvider((ref) {
-  return DataModel() ;
+  return DataModel();
 });
 
 //Creating the class our ChangeNotifier would listen to - this class would interact with Person Class to add and update  persons
@@ -838,19 +850,78 @@ class DataModel extends ChangeNotifier {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /////***********Creating Dialog to be called by FAB ***********/////////
+//showDialog needs ctx and existing person is needed when we need to update a person
+createOrUpdatePersonDialog(BuildContext context, [Person? exixtingPerson]) {
+  String? name = exixtingPerson?.name;
+  int? age = exixtingPerson?.age;
 
+  //textfield controllers
+  TextEditingController itemNameController = TextEditingController();
+  TextEditingController itemNumberController = TextEditingController();
 
+  return showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Inventory"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: itemNameController,
+                decoration: const InputDecoration(hintText: "Enter Item Name"),
+                onChanged: ((value) {
+                  name = value; //pass the value from text field into name
+                }),
+              ),
+              TextField(
+                controller: itemNumberController,
+                decoration:
+                    const InputDecoration(hintText: "Enter number of items"),
+                onChanged: ((value) {}),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: const Text("Save"),
+              onPressed: () {},
+            ),
+          ],
+        );
+      });
+}
+
+//Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Inventory"),
+      ),
+      //
+      body: Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          return GestureDetector(
+            onTap: () async {
+              await createOrUpdatePersonDialog(context);
+            },
+            child: const ListTile(
+              title: Text("Peter"),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
