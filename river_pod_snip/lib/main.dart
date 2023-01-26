@@ -600,127 +600,126 @@
 //
 //
 //
-////
-//Personal Demo to create a Filter Search using Riverpod StateNotifier
+// ////
+// //Personal Demo to create a Filter Search using Riverpod StateNotifier
 
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:flutter/material.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     const ProviderScope(
+//       child: MyApp(),
+//     ),
+//   );
+// }
 
-/////////////::::::::::::::::::::::::::::::::::::::::////////////
-class Product {
-  Product({required this.name, required this.price});
+// /////////////::::::::::::::::::::::::::::::::::::::::////////////
+// class Product {
+//   Product({required this.name, required this.price});
 
-  final String name;
-  final double price;
-}
+//   final String name;
+//   final double price;
+// }
 
-final _products = [
-  Product(name: "Iphone", price: 999),
-  Product(name: 'cookie', price: 2),
-  Product(name: 'ps5', price: 500),
-  Product(name: 'Chocolate', price: 5),
-  Product(name: 'Xbox', price: 400),
-  Product(name: 'Fruit', price: 5),
-  Product(name: 'Vegetable', price: 3),
-];
+// final _products = [
+//   Product(name: "Iphone", price: 999),
+//   Product(name: 'cookie', price: 2),
+//   Product(name: 'ps5', price: 500),
+//   Product(name: 'Chocolate', price: 5),
+//   Product(name: 'Xbox', price: 400),
+//   Product(name: 'Fruit', price: 5),
+//   Product(name: 'Vegetable', price: 3),
+// ];
 
-//Riverpod-PROVIDER to provide a  sorted list of product based on the selected dropdown
-final productsProvider = Provider<List<Product>>(
-  (ref) {
-    //return _products;
-    
-    /*for the sorting mechanism*/
-    final sortType = ref.watch(productSortTypeProvider); //watching the enum provider
-    //
-    switch (sortType) {
-      case ProductSortType.name:
-        _products.sort(((a, b) => a.name.compareTo(b.name)));
-        return _products;
+// //Riverpod-PROVIDER to provide a  sorted list of product based on the selected dropdown
+// final productsProvider = Provider<List<Product>>(
+//   (ref) {
+//     //return _products;
 
-      case ProductSortType.price:
-        return _products..sort(((a, b) => a.price.compareTo(b.price))); //Same as above but using cascade operator
-    }
-  },
-);
+//     /*for the sorting mechanism*/
+//     final sortType = ref.watch(productSortTypeProvider); //watching the enum provider
+//     //
+//     switch (sortType) {
+//       case ProductSortType.name:
+//         _products.sort(((a, b) => a.name.compareTo(b.name)));
+//         return _products;
 
-//Enum used to catergorize what to sort by
-enum ProductSortType {
-  name,
-  price,
-}
+//       case ProductSortType.price:
+//         return _products..sort(((a, b) => a.price.compareTo(b.price))); //Same as above but using cascade operator
+//     }
+//   },
+// );
 
-//Creating a StateProvider from riverpod to sync the state of the dropdown button from our productSortTypeProvider enum ""
-//StateProvider providing the current eum value for the "ProductSortType"
-final productSortTypeProvider = StateProvider<ProductSortType>((ref) {
-  return ProductSortType.name; //retruns .name on every first instance
-});
-/////////////::::::::::::::::::::::::::::::::::::::::////////////
+// //Enum used to catergorize what to sort by
+// enum ProductSortType {
+//   name,
+//   price,
+// }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+// //Creating a StateProvider from riverpod to sync the state of the dropdown button from our productSortTypeProvider enum ""
+// //StateProvider providing the current eum value for the "ProductSortType"
+// final productSortTypeProvider = StateProvider<ProductSortType>((ref) {
+//   return ProductSortType.name; //retruns .name on every first instance
+// });
+// /////////////::::::::::::::::::::::::::::::::::::::::////////////
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final individualProduct = ref.watch(productsProvider);
-    return MaterialApp(
-      title: 'Riverpod projects',
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.dark,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Cart Filter"),
-          centerTitle: true,
-          actions: [
-            const SizedBox(width: 30),
-            DropdownButton<ProductSortType>(
-              // When the sort type changes, this will rebuild the dropdown to update the icon shown.
-              //we watch cos we want to also listen to change and update the icon to be shown
-              value: ref.watch(productSortTypeProvider),
-              onChanged: (value) {
-                //We read here cos we want to find out the drop down that was clicked
-                //we dont WATCH here cos we dont want to listen to this and listening trigger a rebuild which we dont want
-                print(value);
-                ref.read(productSortTypeProvider.notifier).state = value!;
-              },
-              items: const [
-                DropdownMenuItem(
-                  value: ProductSortType.name,
-                  child: Icon(Icons.abc),
-                ),
-                DropdownMenuItem(
-                  value: ProductSortType.price,
-                  child: Icon(Icons.price_change_outlined),
-                ),
-              ],
-              // items:
-            ),
-            const SizedBox(width: 30)
-          ],
-        ),
-        //Use ListView.builder to populate productProvider "PROVIDER" inside a ListTile
-        body: ListView.builder(
-          itemCount: individualProduct.length,
-          itemBuilder: (BuildContext context, int index) {
-            final data = individualProduct[index];
-            return ListTile(
-              title: Text(data.name),
-              trailing: Text("${data.price}"),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
+// class MyApp extends ConsumerWidget {
+//   const MyApp({super.key});
 
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final individualProduct = ref.watch(productsProvider);
+//     return MaterialApp(
+//       title: 'Riverpod projects',
+//       darkTheme: ThemeData.dark(),
+//       themeMode: ThemeMode.dark,
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: const Text("Cart Filter"),
+//           centerTitle: true,
+//           actions: [
+//             const SizedBox(width: 30),
+//             DropdownButton<ProductSortType>(
+//               // When the sort type changes, this will rebuild the dropdown to update the icon shown.
+//               //we watch cos we want to also listen to change and update the icon to be shown
+//               value: ref.watch(productSortTypeProvider),
+//               onChanged: (value) {
+//                 //We read here cos we want to find out the drop down that was clicked
+//                 //we dont WATCH here cos we dont want to listen to this and listening trigger a rebuild which we dont want
+//                 print(value);
+//                 ref.read(productSortTypeProvider.notifier).state = value!;
+//               },
+//               items: const [
+//                 DropdownMenuItem(
+//                   value: ProductSortType.name,
+//                   child: Icon(Icons.abc),
+//                 ),
+//                 DropdownMenuItem(
+//                   value: ProductSortType.price,
+//                   child: Icon(Icons.price_change_outlined),
+//                 ),
+//               ],
+//               // items:
+//             ),
+//             const SizedBox(width: 30)
+//           ],
+//         ),
+//         //Use ListView.builder to populate productProvider "PROVIDER" inside a ListTile
+//         body: ListView.builder(
+//           itemCount: individualProduct.length,
+//           itemBuilder: (BuildContext context, int index) {
+//             final data = individualProduct[index];
+//             return ListTile(
+//               title: Text(data.name),
+//               trailing: Text("${data.price}"),
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 //
 //
@@ -761,14 +760,97 @@ class MyApp extends ConsumerWidget {
 //
 // DEMO Example 5 Inventory App
 
-// import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'dart:collection';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
-// @immutable
-// class Person{
-//   final String? name;
-//   final int? age;
-//   final String uuid;
-//   Person({required this.name, required this.age, this.uuid}) : uuid =uuid ?? uuid().;
-// }
+//creating an immutable class
+@immutable
+class Person {
+  final String? name;
+  final int? age;
+  final String? uuid;
+
+  Person({required this.name, required this.age, String? uuid})
+      : uuid = uuid ?? const Uuid().v4();
+  
+  //function used to update name and age
+  Person updated([String? name, int? age]) => Person(
+        name: name ?? this.name,
+        age: age ?? this.age,
+        // uuid : uuid
+      );
+
+  String get displayName => "$name ($age)";
+
+  //  //to make sure the object is unique
+  //   @override
+  //   bool operator ==(Object other) {
+  //     if (identical(this, other)) return true;
+
+  //     return other is Person &&
+  //       other.uuid == uuid;
+  //   }
+  //create an equatable to check the hash
+  @override
+  bool operator ==(covariant Person other) => uuid == other.uuid;
+
+  @override
+  int get hashCode => uuid.hashCode;
+
+  //the toString method
+  @override
+  String toString() => "Person(name: $name, age: $age, uuid: $uuid)";
+}
+
+//ChangeNotifierProvider
+final peopleProvider = ChangeNotifierProvider((ref) {
+  return DataModel() ;
+});
+
+//Creating the class our ChangeNotifier would listen to - this class would interact with Person Class to add and update  persons
+class DataModel extends ChangeNotifier {
+  final List<Person> _people = []; //Hold the list of Indivicual Person Objects
+  int get count => _people.length;
+
+  UnmodifiableListView<Person> get people => UnmodifiableListView(_people);
+
+  //Add a person to the List
+  void add(Person person) {
+    _people.add(person);
+    notifyListeners();
+  }
+
+//Modify and existing Person in a List
+  void update(Person updatedPerson) {
+    //before we update a person we check if the person already exist in the _people List
+    final index = _people
+        .indexOf(updatedPerson); //finds the index person we want to update
+    final oldPerson = _people[index]; //get the actual  person we want to update
+
+    //compare the new values of the person with the old values of the person then modify the old
+    if (oldPerson.name != updatedPerson.name ||
+        oldPerson.age != updatedPerson.age) {
+      _people[index] = oldPerson.updated(updatedPerson.name, updatedPerson.age);
+      notifyListeners();
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////***********Creating Dialog to be called by FAB ***********/////////
+
 
