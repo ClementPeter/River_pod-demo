@@ -766,10 +766,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-
 //creating an immutable class
 @immutable
 class Person {
@@ -806,17 +802,20 @@ class Person {
 
   //the toString method
   @override
-  String toString() => "Person(name: $name, age: $age, uuid: $uuid)";
+  String toString() =>
+      "Person(name: $name, age: $age, uuid: $uuid)"; //check if this is necessary
 }
 
-//ChangeNotifierProvider
+//ChangeNotifierProvider to provide the Data Model class through our app
 final peopleProvider = ChangeNotifierProvider((ref) {
   return DataModel();
 });
 
 //Creating the class our ChangeNotifier would listen to - this class would interact with Person Class to add and update  persons
 class DataModel extends ChangeNotifier {
-  final List<Person> _people = []; //Hold the list of Indivicual Person Objects
+  final List<Person> _people = [
+    Person(name: "Arms", age: 3)
+  ]; //Hold the list of Indivicual Person Objects
   int get count => _people.length;
 
   UnmodifiableListView<Person> get people => UnmodifiableListView(_people);
@@ -845,15 +844,22 @@ class DataModel extends ChangeNotifier {
 
 /////***********Creating Dialog to be called by FAB ***********/////////
 //showDialog needs ctx and existing person is needed when we need to update a person
-createOrUpdatePersonDialog(BuildContext context, [Person? exixtingPerson]) {
-  String? name = exixtingPerson?.name;
-  int? age = exixtingPerson?.age;
+Future<Person?> createOrUpdatePersonDialog(BuildContext context,
+    [Person? existingPerson]) {
+  //
+  String? name = existingPerson?.name;
+  int? age = existingPerson?.age;
 
   //textfield controllers
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemNumberController = TextEditingController();
 
-  return showCupertinoDialog(
+  //update the textfield controller with the existing values of name and age if we have it
+  // - Does the AutoFill if user exist alreadt
+  itemNameController.text = name ?? "";
+  itemNumberController.text = age?.toString() ?? "";
+
+  return showDialog<Person?>(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -863,7 +869,7 @@ createOrUpdatePersonDialog(BuildContext context, [Person? exixtingPerson]) {
             children: [
               TextField(
                 controller: itemNameController,
-                decoration: const InputDecoration(hintText: "Enter Item Name"),
+                decoration: const InputDecoration(hintText: "Enter item name"),
                 onChanged: ((value) {
                   name = value; //pass the value from text field into name
                 }),
@@ -872,26 +878,50 @@ createOrUpdatePersonDialog(BuildContext context, [Person? exixtingPerson]) {
                 controller: itemNumberController,
                 decoration:
                     const InputDecoration(hintText: "Enter number of items"),
-                onChanged: ((value) {}),
+                onChanged: ((value) {
+                  age = int.tryParse(value);
+                  //age = value.to
+                }),
               ),
             ],
-          ),
+          ), 
           actions: [
             TextButton(
-              child: const Text("Cancel"),
+              child: const Text("Save"),
               onPressed: () {
-                Navigator.pop(context);
+                //save when both textfield are filled
+                if (name != null && age != null) {
+                  //if there is an existing person
+                  if (existingPerson != null) {
+                    final newPerson = existingPerson.updated(name, age);
+                    Navigator.of(context).pop(newPerson);
+                    // Navigator.pop(context, newPerson);
+                  } else {
+                    //Navigator.pop(context, Person(name: name, age: age));
+                    Navigator.of(context).pop(Person(name: name, age: age));
+                  }
+                } else {
+                  //show a prompt
+                  Navigator.of(context).pop();
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     content: Text("Fill in the fields"),
+                  //   ),
+                  // );
+ 
+                }
               },
             ),
             TextButton(
-              child: const Text("Save"),
-              onPressed: () {},
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
         );
       });
 }
-
 
 void main() {
   runApp(
@@ -899,30 +929,62 @@ void main() {
       child: MyApp(),
     ),
   );
-} 
+}
+
 //Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Inventory"),
-      ),
-      //
-      body: Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          return GestureDetector(
-            onTap: () async {
-              await createOrUpdatePersonDialog(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp(
+      title: 'Riverpod Projects',
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text("Inventory"),
+            centerTitle: true,
+          ),
+          //
+          body: Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              //
+              final dataModel = ref.watch(peopleProvider);
+              return ListView.builder(
+                itemCount: dataModel.count,
+                itemBuilder: (context, index) {
+                  final person = dataModel.people[index];
+                  return GestureDetector(
+                    onTap: () async {
+                      final updatedPerson =
+                          await createOrUpdatePersonDialog(context, person);
+                      //Updating the inventory on click of the the ListTile
+                      if (updatedPerson != null) {
+                        dataModel.update(updatedPerson);
+                      }
+                    },
+                    child: ListTile(
+                      title: Text(person.displayName),
+                    ),
+                  );
+                },
+              );
             },
-            child: const ListTile(
-              title: Text("Peter"),
-            ),
-          );
-        },
-      ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              print("FAB Working");
+              final person = await createOrUpdatePersonDialog(context);
+              print(person);
+              if (person != null) {
+                final dataModel =
+                    ref.read(peopleProvider); //check if this is necessary
+                dataModel.add(person);
+              }
+            },
+            child: const Icon(Icons.add),
+          )),
     );
   }
 }
