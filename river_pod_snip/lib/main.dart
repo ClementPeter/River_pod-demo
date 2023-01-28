@@ -761,11 +761,96 @@
 // DEMO Example 5 Inventory App
 
 import 'dart:collection';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
+
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Riverpod projects',
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+//Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
+class MyHomePage extends ConsumerWidget {
+  const MyHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Inventory"),
+          centerTitle: true,
+        ),
+        //
+        body: Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            //
+            final dataModel = ref.watch(peopleProvider);
+            return ListView.builder(
+              itemCount: dataModel.count,
+              itemBuilder: (context, index) {
+                final person = dataModel.people[index];
+                return ListTile(
+                  title: GestureDetector(
+                    onTap: () async {
+                      final updatedPerson =
+                          await createOrUpdatePersonDialog(context, person);
+                      //Updating the inventory on click of the the ListTile
+                      if (updatedPerson != null) {
+                        dataModel.update(updatedPerson);
+                      }
+                    },
+                    // child: ListTile(
+                    //   title: Text(person.displayName),
+                    // ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            print("FAB Working");
+            final person = await createOrUpdatePersonDialog(context);
+            print(person);
+            if (person != null) {
+              final dataModel =
+                  ref.read(peopleProvider); //check if this is necessary
+              dataModel.add(person);
+            }
+          },
+          child: const Icon(Icons.add),
+        ),);
+  }
+}
+
+
+
+//
+//
+//
 //creating an immutable class
 @immutable
 class Person {
@@ -884,7 +969,7 @@ Future<Person?> createOrUpdatePersonDialog(BuildContext context,
                 }),
               ),
             ],
-          ), 
+          ),
           actions: [
             TextButton(
               child: const Text("Save"),
@@ -908,7 +993,7 @@ Future<Person?> createOrUpdatePersonDialog(BuildContext context,
                   //     content: Text("Fill in the fields"),
                   //   ),
                   // );
- 
+
                 }
               },
             ),
@@ -921,70 +1006,4 @@ Future<Person?> createOrUpdatePersonDialog(BuildContext context,
           ],
         );
       });
-}
-
-void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
-}
-
-//Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
-      title: 'Riverpod Projects',
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.dark,
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text("Inventory"),
-            centerTitle: true,
-          ),
-          //
-          body: Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              //
-              final dataModel = ref.watch(peopleProvider);
-              return ListView.builder(
-                itemCount: dataModel.count,
-                itemBuilder: (context, index) {
-                  final person = dataModel.people[index];
-                  return GestureDetector(
-                    onTap: () async {
-                      final updatedPerson =
-                          await createOrUpdatePersonDialog(context, person);
-                      //Updating the inventory on click of the the ListTile
-                      if (updatedPerson != null) {
-                        dataModel.update(updatedPerson);
-                      }
-                    },
-                    child: ListTile(
-                      title: Text(person.displayName),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              print("FAB Working");
-              final person = await createOrUpdatePersonDialog(context);
-              print(person);
-              if (person != null) {
-                final dataModel =
-                    ref.read(peopleProvider); //check if this is necessary
-                dataModel.add(person);
-              }
-            },
-            child: const Icon(Icons.add),
-          )),
-    );
-  }
 }
