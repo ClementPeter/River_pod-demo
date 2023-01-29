@@ -2,7 +2,7 @@
 // import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // //Building 6 MINI projects with Riverpod and Hooks Riverpod
-
+//  //Show current Time using PROVIDER from Riverpod
 // void main() {
 //   runApp(
 //     ProviderScope(
@@ -21,7 +21,7 @@
 //       theme: ThemeData(
 //         primarySwatch: Colors.blue,
 //       ),
-//       home: const MyHomePage(),
+//       home: const HomePage(),
 //     );
 //   }
 // }
@@ -30,8 +30,8 @@
 //   return DateTime.now();
 // });
 
-// class MyHomePage extends ConsumerWidget {
-//   const MyHomePage({super.key});
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
@@ -128,7 +128,7 @@
 //       theme: ThemeData(
 //         primarySwatch: Colors.blue,
 //       ),
-//       home: const MyHomePage(),
+//       home: const HomePage(),
 //     );
 //   }
 // }
@@ -156,37 +156,7 @@
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 //
 //
 //
@@ -210,8 +180,8 @@
 //   return Counter();
 // });
 
-// class MyHomePage extends ConsumerWidget {
-//   const MyHomePage({super.key});
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
@@ -289,7 +259,7 @@
 //
 //
 //
-//DEMO APP 3 Weather App using FutureProvider and StateProvider Mock Data
+//DEMO APP 3 Mock Weather App using FutureProvider and StateProvider Mock Data
 
 //Building 6 MINI projects with Riverpod and Hooks Riverpod
 
@@ -316,7 +286,7 @@
 //       theme: ThemeData(
 //         primarySwatch: Colors.blue,
 //       ),
-//       home: const MyHomePage(),
+//       home: const HomePage(),
 //     );
 //   }
 // }
@@ -361,8 +331,8 @@
 
 // /* */
 
-// class MyHomePage extends ConsumerWidget {
-//   const MyHomePage({super.key});
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
@@ -484,7 +454,7 @@
 //       theme: ThemeData(
 //         primarySwatch: Colors.blue,
 //       ),
-//       home: const MyHomePage(),
+//       home: const HomePage(),
 //     );
 //   }
 // }
@@ -522,8 +492,8 @@
 //       .map((tick) => names.getRange(0, tick));
 // });
 
-// class MyHomePage extends ConsumerWidget {
-//   const MyHomePage({super.key});
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
@@ -601,7 +571,7 @@
 //
 //
 // ////
-// //Personal Demo to create a Filter Search using Riverpod StateNotifier
+// //Itemal Demo to create a Filter Search using Riverpod StateNotifier
 
 // import 'package:flutter/material.dart';
 // import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -758,13 +728,314 @@
 //
 //
 //
-// DEMO Example 5 Inventory App
+// // DEMO Example 5 Name and Age App
+// import 'dart:collection';
+// import 'package:flutter/material.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:uuid/uuid.dart';
 
+// void main() {
+//   runApp(
+//     const ProviderScope(
+//       child: MyApp(),
+//     ),
+//   );
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Riverpod projects',
+//       darkTheme: ThemeData.dark(),
+//       themeMode: ThemeMode.dark,
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: const HomePage(),
+//     );
+//   }
+// }
+
+// //Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
+
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("HomePage"),
+//         centerTitle: true,
+//       ),
+//       //
+//       body: Consumer(
+//         builder: (BuildContext context, WidgetRef ref, Widget? child) {
+//           //
+//           final dataModel = ref.watch(itemProvider);
+//           return ListView.builder(
+//             itemCount: dataModel.count,
+//             itemBuilder: (context, index) {
+//               final item = dataModel.people[index];
+//               return ListTile(
+//                 title: GestureDetector(
+//                   onTap: () async {
+//                     //Updating the inventory on click of the the ListTile
+//                     final updatedItem = await createOrUpdateItemDialog(
+//                       context,
+//                       item,
+//                     );
+
+//                     if (updatedItem != null) {
+//                       dataModel.update(updatedItem);
+//                     }
+//                   },
+//                   child: Text(
+//                     item.displayName,
+//                   ),
+//                 ),
+//               );
+//             },
+//           );
+//         },
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () async {
+//           final item = await createOrUpdateItemDialog(context);
+//           //print(item);
+//           if (item != null) {
+//             //check if this is necessary - needed to create a refeerence for itemProvider ChangeNotifier
+//             final dataModel = ref.read(itemProvider);
+//             dataModel.add(item);
+//           }
+//         },
+//         child: const Icon(Icons.add),
+//       ),
+//     );
+//   }
+// }
+
+// //creating an immutable class
+// @immutable
+// class Item {
+//   final String? name;
+//   final int? age;
+//   final String? uuid;
+
+//   Item({
+//     required this.name,
+//     required this.age,
+//     String? uuid,
+//   }) : uuid = uuid ?? const Uuid().v4();
+
+//   //function used to update name and age
+//   Item updated([String? name, int? age]) => Item(
+//         name: name ?? this.name,
+//         age: age ?? this.age,
+//         uuid: uuid,
+//       );
+
+//   String get displayName => "$name $age year(s) old";
+
+//   //  //to make sure the object is unique
+//   //   @override
+//   //   bool operator ==(Object other) {
+//   //     if (identical(this, other)) return true;
+
+//   //     return other is Item &&
+//   //       other.uuid == uuid;
+//   //   }
+//   //create an equatable to check the hash
+//   @override
+//   bool operator ==(covariant Item other) => uuid == other.uuid;
+
+//   @override
+//   int get hashCode => uuid.hashCode;
+
+//   //the toString method
+//   @override
+//   String toString() =>
+//       "Item(name: $name, age: $age, uuid: $uuid,)"; //check if this is necessary
+// }
+
+// //ChangeNotifierProvider to provide the Data Model class through our app
+// final itemProvider = ChangeNotifierProvider((ref) {
+//   return DataModel();
+// });
+
+// //Creating the class our ChangeNotifier would listen to - this class would interact with Item Class to add and update  items
+// class DataModel extends ChangeNotifier {
+//   final List<Item> _item = []; //Hold the list of Indivicual Item Objects
+//   int get count => _item.length;
+
+//   //Exposing the List so that it cant be changed
+//   UnmodifiableListView<Item> get people => UnmodifiableListView(_item);
+
+//   //Add a item to the List
+//   void add(Item item) {
+//     _item.add(item);
+//     notifyListeners();
+//   }
+
+// //Modify and existing Item in a List
+//   void update(Item updatedItem) {
+//     //before we update a item we check if the item already exist in the _item List
+//     //finds the index item we want to update
+//     final index = _item.indexOf(updatedItem);
+//     final oldItem = _item[index]; //get the actual  item we want to update
+
+//     //compare the new values of the item with the old values of the item then modify the old
+//     if (oldItem.name != updatedItem.name ||
+//         oldItem.age != updatedItem.age) {
+//       _item[index] = oldItem.updated(updatedItem.name, updatedItem.age);
+//       notifyListeners();
+//     }
+//   }
+// }
+
+// /////***********Creating Dialog to be called by FAB ***********/////////
+// //showDialog needs ctx and existing item is needed when we need to update a item
+
+// //
+// //textfield controllers
+// //issue found
+// // TextEditingController itemNameController = TextEditingController();
+// // TextEditingController itemNumberController = TextEditingController();
+
+// final nameController = TextEditingController(); //issue fixed
+// final ageController = TextEditingController();
+
+// Future<Item?> createOrUpdateItemDialog(
+//   BuildContext context, [
+//   Item? existingItem,
+// ]) {
+//   //
+//   String? name = existingItem?.name;
+//   int? age = existingItem?.age;
+
+//   //update the textfield controller with the existing values of name and age if we have it
+//   // - Does the AutoFill if user exist alreadt
+//   nameController.text = name ?? "";
+//   ageController.text = age?.toString() ?? "";
+
+//   return showDialog<Item?>(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           title: const Text("Create a Item"),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               TextField(
+//                 controller: nameController,
+//                 decoration: const InputDecoration(hintText: "Enter name here"),
+//                 onChanged: ((value) {
+//                   name = value; //pass the value from text field into name
+//                 }),
+//               ),
+//               TextField(
+//                 controller: ageController,
+//                 decoration: const InputDecoration(hintText: "Enter age here"),
+//                 onChanged: ((value) {
+//                   age = int.tryParse(value);
+//                 }),
+//               ),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               child: const Text("Cancel"),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//             TextButton(
+//               child: const Text("Save"),
+//               onPressed: () {
+//                 //save when both textfield are filled
+//                 if (name != null && age != null) {
+//                   //if there is an existing item
+//                   if (existingItem != null) {
+//                     print(
+//                         ":::::::::::::::::::::::::::::::::::::$existingItem");
+//                     final newItem = existingItem.updated(name, age);
+//                     Navigator.of(context).pop(newItem);
+//                     // Navigator.pop(context, newItem);
+//                   } else {
+//                     //Navigator.pop(context, Item(name: name, age: age));
+//                     Navigator.of(context).pop(Item(name: name, age: age));
+//                   }
+//                   //  Navigator.of(context).pop(Item(name: name, age: age));
+//                   // Navigator.of(context).push(Item(name: name, age: age));
+//                 } else {
+//                   //show a prompt
+//                   //Navigator.of(context).pop();
+//                   ScaffoldMessenger.of(context).showSnackBar(
+//                     const SnackBar(
+//                       duration: Duration(seconds: 1),
+//                       backgroundColor: Colors.red,
+//                       content: Text("Fill in the fields"),
+//                     ),
+//                   );
+//                 }
+//               },
+//             ),
+//           ],
+//         );
+//       });
+// }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+///
+//
+//
+//
+//
+///
+//
+
+///
+
+//
+///
+
+////e
+////
+////
+////
+////
+///
+////
+
+//
+///
+///
+///
+///
+///
+///
+///
+///
+///
+///
+/////
+// //
+// // DEMO Example 5 Name and Age App
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
-
 
 void main() {
   runApp(
@@ -786,101 +1057,105 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const HomePage(),
     );
   }
 }
 
 //Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
-class MyHomePage extends ConsumerWidget {
-  const MyHomePage({super.key});
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Inventory"),
-          centerTitle: true,
-        ),
-        //
-        body: Consumer(
-          builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            //
-            final dataModel = ref.watch(peopleProvider);
-            return ListView.builder(
-              itemCount: dataModel.count,
-              itemBuilder: (context, index) {
-                final person = dataModel.people[index];
-                return ListTile(
-                  title: GestureDetector(
-                    onTap: () async {
-                      final updatedPerson =
-                          await createOrUpdatePersonDialog(context, person);
-                      //Updating the inventory on click of the the ListTile
-                      if (updatedPerson != null) {
-                        dataModel.update(updatedPerson);
-                      }
-                    },
-                    // child: ListTile(
-                    //   title: Text(person.displayName),
-                    // ),
+      appBar: AppBar(
+        title: const Text("Inventory"),
+        centerTitle: true,
+      ),
+      //
+      body: Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          //
+          final dataModel = ref.watch(itemProvider);
+          return ListView.builder(
+            itemCount: dataModel.count,
+            itemBuilder: (context, index) {
+              final item = dataModel.people[index];
+              return ListTile(
+                title: GestureDetector(
+                  onTap: () async {
+                    //Updating the inventory on click of the the ListTile
+                    final updatedItem = await createOrUpdateItemDialog(
+                      context,
+                      item,
+                    );
+
+                    if (updatedItem != null) {
+                      dataModel.update(updatedItem);
+                    }
+                  },
+                  child: Text(
+                    item.displayName,
                   ),
-                );
-              },
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            print("FAB Working");
-            final person = await createOrUpdatePersonDialog(context);
-            print(person);
-            if (person != null) {
-              final dataModel =
-                  ref.read(peopleProvider); //check if this is necessary
-              dataModel.add(person);
-            }
-          },
-          child: const Icon(Icons.add),
-        ),);
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final item = await createOrUpdateItemDialog(context);
+          //print(item);
+          if (item != null) {
+            //check if this is necessary - needed to create a refeerence for itemProvider ChangeNotifier
+            final dataModel = ref.read(itemProvider);
+            dataModel.add(item);
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
 
-
-
 //
 //
-//
-//creating an immutable class
+//incase cut and place above HomePage
+//creating an immutable class - when all the params are final
 @immutable
-class Person {
+class Item {
   final String? name;
-  final int? age;
+  final int? unit;
   final String? uuid;
 
-  Person({required this.name, required this.age, String? uuid})
-      : uuid = uuid ?? const Uuid().v4();
+  Item({
+    required this.name,
+    required this.unit,
+    String? uuid,
+  }) : uuid = uuid ?? const Uuid().v4();
 
   //function used to update name and age
-  Person updated([String? name, int? age]) => Person(
+  Item updated([String? name, int? age]) => Item(
         name: name ?? this.name,
-        age: age ?? this.age,
-        // uuid : uuid
+        unit: age ?? this.unit,
+        uuid: uuid,
       );
 
-  String get displayName => "$name ($age)";
+  String get displayName => "$name $unit item(s)";
 
   //  //to make sure the object is unique
   //   @override
   //   bool operator ==(Object other) {
   //     if (identical(this, other)) return true;
 
-  //     return other is Person &&
+  //     return other is Item &&
   //       other.uuid == uuid;
   //   }
   //create an equatable to check the hash
   @override
-  bool operator ==(covariant Person other) => uuid == other.uuid;
+  bool operator ==(covariant Item other) => uuid == other.uuid;
 
   @override
   int get hashCode => uuid.hashCode;
@@ -888,63 +1163,65 @@ class Person {
   //the toString method
   @override
   String toString() =>
-      "Person(name: $name, age: $age, uuid: $uuid)"; //check if this is necessary
+      "Item(name: $name, age: $unit, uuid: $uuid,)"; //check if this is necessary
 }
 
 //ChangeNotifierProvider to provide the Data Model class through our app
-final peopleProvider = ChangeNotifierProvider((ref) {
+final itemProvider = ChangeNotifierProvider((ref) {
   return DataModel();
 });
 
-//Creating the class our ChangeNotifier would listen to - this class would interact with Person Class to add and update  persons
+//Creating the class our ChangeNotifier would listen to - this class would interact with Item Class to add and update  items
 class DataModel extends ChangeNotifier {
-  final List<Person> _people = [
-    Person(name: "Arms", age: 3)
-  ]; //Hold the list of Indivicual Person Objects
-  int get count => _people.length;
+  final List<Item> _item = []; //Hold the list of Indivicual Item Objects
+  int get count => _item.length;
 
-  UnmodifiableListView<Person> get people => UnmodifiableListView(_people);
+  //Exposing the List so that it cant be changed
+  UnmodifiableListView<Item> get people => UnmodifiableListView(_item);
 
-  //Add a person to the List
-  void add(Person person) {
-    _people.add(person);
+  //Add a item to the List
+  void add(Item item) {
+    _item.add(item);
     notifyListeners();
   }
 
-//Modify and existing Person in a List
-  void update(Person updatedPerson) {
-    //before we update a person we check if the person already exist in the _people List
-    final index = _people
-        .indexOf(updatedPerson); //finds the index person we want to update
-    final oldPerson = _people[index]; //get the actual  person we want to update
+//Modify and existing Item in a List
+  void update(Item updatedItem) {
+    //before we update a item we check if the item already exist in the _item List
+    //finds the index item we want to update
+    final index = _item.indexOf(updatedItem);
+    final oldItem = _item[index]; //get the actual  item we want to update
 
-    //compare the new values of the person with the old values of the person then modify the old
-    if (oldPerson.name != updatedPerson.name ||
-        oldPerson.age != updatedPerson.age) {
-      _people[index] = oldPerson.updated(updatedPerson.name, updatedPerson.age);
-      notifyListeners();
+    //compare the new values of the item with the old values of the item then modify the old
+    if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
+      _item[index] = oldItem.updated(updatedItem.name, updatedItem.unit);
     }
+    notifyListeners();
   }
 }
 
 /////***********Creating Dialog to be called by FAB ***********/////////
-//showDialog needs ctx and existing person is needed when we need to update a person
-Future<Person?> createOrUpdatePersonDialog(BuildContext context,
-    [Person? existingPerson]) {
-  //
-  String? name = existingPerson?.name;
-  int? age = existingPerson?.age;
+//showDialog needs ctx and existing item is needed when we need to update a item
 
-  //textfield controllers
-  TextEditingController itemNameController = TextEditingController();
-  TextEditingController itemNumberController = TextEditingController();
+//
+//textfield controllers
+final itemNameController = TextEditingController();
+final itemNumberController = TextEditingController();
+
+Future<Item?> createOrUpdateItemDialog(
+  BuildContext context, [
+  Item? existingItem,
+]) {
+  //
+  String? name = existingItem?.name;
+  int? unit = existingItem?.unit;
 
   //update the textfield controller with the existing values of name and age if we have it
   // - Does the AutoFill if user exist alreadt
   itemNameController.text = name ?? "";
-  itemNumberController.text = age?.toString() ?? "";
+  itemNumberController.text = unit?.toString() ?? "";
 
-  return showDialog<Person?>(
+  return showDialog<Item?>(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -964,7 +1241,7 @@ Future<Person?> createOrUpdatePersonDialog(BuildContext context,
                 decoration:
                     const InputDecoration(hintText: "Enter number of items"),
                 onChanged: ((value) {
-                  age = int.tryParse(value);
+                  unit = int.tryParse(value);
                   //age = value.to
                 }),
               ),
@@ -975,25 +1252,27 @@ Future<Person?> createOrUpdatePersonDialog(BuildContext context,
               child: const Text("Save"),
               onPressed: () {
                 //save when both textfield are filled
-                if (name != null && age != null) {
-                  //if there is an existing person
-                  if (existingPerson != null) {
-                    final newPerson = existingPerson.updated(name, age);
-                    Navigator.of(context).pop(newPerson);
-                    // Navigator.pop(context, newPerson);
+                if (name != null && unit != null) {
+                  //if there is an existing item
+                  if (existingItem != null) {
+                    // print(":::::::::::::::::::::::::::::::::::::$existingItem");
+                    final newItem = existingItem.updated(name, unit);
+                    // Navigator.of(context).pop(newItem);
+                    Navigator.pop(context, newItem);
                   } else {
-                    //Navigator.pop(context, Person(name: name, age: age));
-                    Navigator.of(context).pop(Person(name: name, age: age));
+                    Navigator.pop(context, Item(name: name, unit: unit));
+                    //Navigator.of(context).pop(Item(name: name, unit: unit));
                   }
                 } else {
                   //show a prompt
                   Navigator.of(context).pop();
                   // ScaffoldMessenger.of(context).showSnackBar(
                   //   const SnackBar(
+                  //     duration: Duration(seconds: 1500),
+                  //     backgroundColor: Colors.red,
                   //     content: Text("Fill in the fields"),
                   //   ),
                   // );
-
                 }
               },
             ),
