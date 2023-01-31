@@ -1026,11 +1026,7 @@
 ///
 ///
 ///
-// ///
-// ///
-// /////
-// // //
-// // DEMO Example 5 Clone INVENTORY APP
+// DEMO Personal Project Clone INVENTORY APP
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -1073,7 +1069,7 @@ class HomePage extends ConsumerWidget {
         itemCount: itemModel.itemAmount,
         itemBuilder: ((context, index) {
           final item = itemModel.item[index];
-          print(item);
+          //print(item);
           return ListTile(
             title: GestureDetector(
               onTap: () async {
@@ -1128,19 +1124,22 @@ class Item {
   //get the display UI name
   String get displayName => "$name $unit unit(s)";
 
-  //to compare and make sure the object is unique
+  //to compare and make sure the object is unique - NECESARY
   //the operator checks the uuid property of the "other" object to see if its equal to the object being compared too
   //covariant specfies that the "other" can be a subtype of the object being compared
+
   @override
   bool operator ==(covariant Item other) => uuid == other.uuid;
 
-  @override
-  int get hashcode => uuid.hashCode;
+  // @override
+  // int get hashcode => uuid.hashCode;
 
-  //check if this is necessary
+  //check if this is necessary - NOT NECESSARY
   //returning to String method for debugging, logging or display purposes
-  @override
-  String toString() => "Item(name: $name, unit: $unit, uuid : $uuid)";
+
+  //@override
+  //String toString() => "Item(name: $name, unit: $unit, uuid : $uuid)";
+
 }
 
 ///************************************//
@@ -1155,7 +1154,7 @@ class ItemDataModel extends ChangeNotifier {
   //Hold the list of Individual Item Objects
 
   final List<Item> _item = [
-    Item(name: "Grazer", unit: 23),
+    Item(name: "Rifle ", unit: 20),
   ];
 
   int get itemAmount => _item.length;
