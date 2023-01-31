@@ -1075,7 +1075,17 @@ class HomePage extends ConsumerWidget {
           final item = itemModel.item[index];
           print(item);
           return ListTile(
-            title: Text(item.displayName),
+            title: GestureDetector(
+              onTap: () async {
+                //pass the item -"updated data" from the dialog
+                final updatedItem =
+                    await createOrUpdateItemDialog(context, item);
+                if (updatedItem != null) {
+                  itemModel.update(updatedItem);
+                }
+              },
+              child: Text(item.displayName),
+            ),
           );
         }),
       ),
@@ -1160,19 +1170,19 @@ class ItemDataModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void update(Item updateditem) {
+  void update(Item updatedItem) {
     //To update an item we have check if the item exist to first locate the item
     //Get the Index - Check the "item" List to see if the passed item has been indexed already
     //returns a number as the "index"
-    final index = _item.indexOf(updateditem);
+    final index = _item.indexOf(updatedItem);
     //get the item from the index
     final oldItem = _item[index];
 
     //compare both values -then update the previus value
-    if (oldItem.name != updateditem.name || oldItem.unit != updateditem.unit) {
+    if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
       _item[index] = oldItem.updated(
-        updateditem.name,
-        updateditem.unit,
+        updatedItem.name,
+        updatedItem.unit,
       );
       notifyListeners();
     }
@@ -1182,14 +1192,20 @@ class ItemDataModel extends ChangeNotifier {
 //*******************************************************//
 
 //creating the dialog funtion used by the ListTile and FAB
-final unitController = TextEditingController();
 final nameController = TextEditingController();
+final unitController = TextEditingController();
 
-//showDialog needs ctx and also existing item is needed when we need to update a item via the ListTile
-Future<Item?> createOrUpdateItemDialog(BuildContext context) {
+//showDialog needs ctx and
+//also existing item is needed when we need to update a item via the ListTile
+Future<Item?> createOrUpdateItemDialog(BuildContext context,
+    [Item? existingItem]) {
   //Holds the value from Onchanged coming from text fields
-  String? name;
-  int? unit;
+  String? name = existingItem?.name;
+  int? unit = existingItem?.unit;
+
+  //Assigning values to the controllers
+  nameController.text = name ?? "";
+  unitController.text = unit?.toString() ?? "";
 
   return showDialog<Item?>(
       context: context,
@@ -1229,13 +1245,30 @@ Future<Item?> createOrUpdateItemDialog(BuildContext context) {
                 if (name != null && unit != null) {
                   //pass in the values directly to pop the scren
                   // Navigator.of(context).pop(Item(name: name!, unit: unit!));
+                  if (existingItem != null) {
+                    //if an item existed ; update it
+                    final newItem = existingItem.updated(
+                      name,
+                      unit,
+                    );
+                    Navigator.of(context).pop(newItem);
+                  } else {
+                    Navigator.of(context).pop(Item(name: name!, unit: unit!));
+                    //or longer route - uncomment this
+                    //print(":::::::::::::::::::::::::::::$newItem");
+                    //final newItem = Item(name: name!, unit: unit!);
+                    //Navigator.of(context).pop(newItem);
 
-                  //or longer route - uncomment this
-                  final newItem = Item(name: name!, unit: unit!);
-                  print(":::::::::::::::::::::::::::::$newItem");
-                  Navigator.of(context).pop(newItem);
+                  }
                 } else {
-                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(seconds: 1),
+                      backgroundColor: Colors.red,
+                      content: Text("Fill in the fields"),
+                    ),
+                  );
+                  // Navigator.of(context).pop();
                 }
               },
             ),
