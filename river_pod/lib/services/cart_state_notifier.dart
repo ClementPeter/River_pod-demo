@@ -10,6 +10,7 @@ final cartStateNotifierProvider =
 
 //State notifier is more preferred to Change Provider Notifier
 class CartStateNotifier extends StateNotifier<List<Product>> {
+  //super helps  define the initial state of our object : super[->empty List<-]
   CartStateNotifier() : super([]);
 
   addProduct(Product product) {
@@ -44,6 +45,7 @@ class CartStateNotifier extends StateNotifier<List<Product>> {
 
 // So if you have been showing a List of pizza in your UI let’s say Pizza 1-10, everytime you add a pizza,it increases by 1 and the changes reflect in your UI.
 
-// And also the .family modifier isn’t for future provider alone.
+/* */
+/// And also the .family modifier isn’t for future provider alone.
 
 // The simple use case is if you want to pass a variable into your State,Future,Stream provider, you can use the .family modifier.

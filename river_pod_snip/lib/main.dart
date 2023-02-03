@@ -221,7 +221,6 @@
 //   }
 // }
 
-
 //
 //
 //
@@ -568,138 +567,137 @@
 //
 //
 //
-
+//DEMO APP 5
 //Item Demo to create a Filter Search using Riverpod StateNotifier
 
-// import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// void main() {
-//   runApp(
-//     const ProviderScope(
-//       child: MyApp(),
-//     ),
-//   );
-// }
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
-// /////////////::::::::::::::::::::::::::::::::::::::::////////////
-// class Product {
-//   Product({required this.name, required this.price});
+/////////////::::::::::::::::::::::::::::::::::::::::////////////
+class Product {
+  Product({required this.name, required this.price});
 
-//   final String name;
-//   final double price;
-// }
+  final String name;
+  final double price;
+}
 
-// final _products = [
-//   Product(name: "Iphone", price: 999),
-//   Product(name: 'cookie', price: 2),
-//   Product(name: 'ps5', price: 500),
-//   Product(name: 'Chocolate', price: 5),
-//   Product(name: 'Xbox', price: 400),
-//   Product(name: 'Fruit', price: 5),
-//   Product(name: 'Vegetable', price: 3),
-// ];
+final _products = [
+  Product(name: "Iphone", price: 999),
+  Product(name: 'cookie', price: 2),
+  Product(name: 'ps5', price: 500),
+  Product(name: 'Chocolate', price: 5),
+  Product(name: 'Xbox', price: 400),
+  Product(name: 'Fruit', price: 5),
+  Product(name: 'Vegetable', price: 3),
+];
 
-// //Riverpod-PROVIDER to provide a  sorted list of product based on the selected dropdown
-// final productsProvider = Provider<List<Product>>(
-//   (ref) {
-//     //return _products;
+//Riverpod-PROVIDER to provide a sorted list of product based on the selected dropdown
+final productsProvider = Provider<List<Product>>(
+  (ref) {
+    //return _products;
 
-//     /*for the sorting mechanism*/
-//     final sortType =
-//         ref.watch(productSortTypeProvider); //watching the enum provider
-//     //
-//     switch (sortType) {
-//       case ProductSortType.name:
-//         _products.sort(((a, b) => a.name.compareTo(b.name)));
-//         return _products;
+    /*for the sorting mechanism*/
+    //watching the enum provider
+    final sortType = ref.watch(productSortTypeProvider);
+    //
+    switch (sortType) {
+      case ProductSortType.name:
+        _products.sort(((a, b) => a.name.compareTo(b.name)));
+        return _products;
 
-//       case ProductSortType.price:
-//         return _products
-//           ..sort(((a, b) => a.price
-//               .compareTo(b.price))); //Same as above but using cascade operator
-//     }
-//   },
-// );
+      case ProductSortType.price:
+        return _products
+          ..sort(
+            ((a, b) => a.price.compareTo(b.price)),
+          ); //Same as above but using cascade operator
+    }
+  },
+);
 
-// //Enum used to catergorize what to sort by
-// enum ProductSortType {
-//   name,
-//   price,
-// }
+//Enum used to catergorize what to sort by
+enum ProductSortType {
+  name,
+  price,
+}
 
-// //Creating a StateProvider with riverpod to sync the state of the dropdown button from our productSortTypeProvider enum
-// //StateProvider providing the current eum value for the "ProductSortType"
+//Creating a StateProvider with riverpod to sync the state of the dropdown button from our productSortTypeProvider enum
+//StateProvider providing the current eum value for the "ProductSortType"
 
-// final productSortTypeProvider = StateProvider<ProductSortType>((ref) {
-//   return ProductSortType.name; //retruns "name" enum on every first instance
-// });
-// /////////////::::::::::::::::::::::::::::::::::::::::////////////
+final productSortTypeProvider = StateProvider<ProductSortType>((ref) {
+  return ProductSortType.name; //retruns "name" enum on every first instance
+});
+/////////////::::::::::::::::::::::::::::::::::::::::////////////
 
-// class MyApp extends ConsumerWidget {
-//   const MyApp({super.key});
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
 
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final individualProduct = ref.watch(productsProvider);
-//     return MaterialApp(
-//       title: 'Riverpod projects',
-//       darkTheme: ThemeData.dark(),
-//       themeMode: ThemeMode.dark,
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: const Text("Cart Filter"),
-//           centerTitle: true,
-//           actions: [
-//             const SizedBox(width: 30),
-//             DropdownButton<ProductSortType>(
-//               // When the sort type changes, this will rebuild the dropdown to update the icon shown.
-//               //we "watch" because we want to also listen to change and update the icon to be shown
-//               value: ref.watch(productSortTypeProvider),
-//               onChanged: (value) {
-//                 //We read here because we want to find out the drop down that was clicked
-//                 //we dont WATCH here because we dont want to listen to this and listening triggers a rebuild of our "build method"  which we dont want
-//                 print(value);
-//                 ref.read(productSortTypeProvider.notifier).state = value!;
-//               },
-//               items: const [
-//                 DropdownMenuItem(
-//                   value: ProductSortType.name,
-//                   child: Icon(Icons.abc),
-//                 ),
-//                 DropdownMenuItem(
-//                   value: ProductSortType.price,
-//                   child: Icon(Icons.price_change_outlined),
-//                 ),
-//               ],
-//               // items:
-//             ),
-//             const SizedBox(width: 30)
-//           ],
-//         ),
-//         //Use ListView.builder to populate productProvider "PROVIDER" inside a ListTile
-//         body: ListView.builder(
-//           itemCount: individualProduct.length,
-//           itemBuilder: (BuildContext context, int index) {
-//             final data = individualProduct[index];
-//             return ListTile(
-//               title: Text(data.name),
-//               trailing: Text("${data.price}"),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final individualProduct = ref.watch(productsProvider);
+    return MaterialApp(
+      title: 'Riverpod projects',
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Cart Filter"),
+          centerTitle: true,
+          actions: [
+            const SizedBox(width: 30),
+            DropdownButton<ProductSortType>(
+              // When the sort type changes, this will rebuild the dropdown to update the icon shown.
+              //we "watch" because we want to also listen to change and update the icon to be shown
+              value: ref.watch(productSortTypeProvider),
+              onChanged: (value) {
+                //We read here because we want to find out the drop down that was clicked
+                //we dont WATCH here because we dont want to listen to this and listening triggers a rebuild of our "build method"  which we dont want
+                print(value);
+                ref.read(productSortTypeProvider.notifier).state = value!;
+              },
+              items: const [
+                DropdownMenuItem(
+                  value: ProductSortType.name,
+                  child: Icon(Icons.abc),
+                ),
+                DropdownMenuItem(
+                  value: ProductSortType.price,
+                  child: Icon(Icons.price_change_outlined),
+                ),
+              ],
+              // items:
+            ),
+            const SizedBox(width: 30)
+          ],
+        ),
+        //Use ListView.builder to populate productProvider "PROVIDER" inside a ListTile
+        body: ListView.builder(
+          itemCount: individualProduct.length,
+          itemBuilder: (BuildContext context, int index) {
+            final data = individualProduct[index];
+            return ListTile(
+              title: Text(data.name),
+              trailing: Text("${data.price}"),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
 
 //
 //
 //
 //
 //
-////
-///
 //
 //
 //
@@ -708,12 +706,6 @@
 //
 //
 //
-//
-//
-//
-//
-//
-///
 //
 //
 //

@@ -99,19 +99,12 @@ class StateNotifierProviderPage extends ConsumerWidget {
                   title: Text(product.title),
                   subtitle: Text(product.description),
                   trailing: IconButton(
-                    onPressed: () {},
-                    icon: IconButton(
-                      onPressed: () {
-                        //.read is more ideal here than .watch
-                        //cos we dont need to listen to addProduct method in cartNotifier.dart
-                        //.watch triggers a rebuild of the Icon which is expensive in terms of App performance
-                        ref
-                            .read(cartStateNotifierProvider.notifier)
-                            .addProduct(product)
-                            .addProduct(product);
-                      },
-                      icon: const Icon(Icons.add_shopping_cart),
-                    ),
+                    onPressed: () {
+                      ref
+                          .read(cartStateNotifierProvider.notifier)
+                          .addProduct(product);
+                    },
+                    icon: const Icon(Icons.add_shopping_cart),
                   ),
                 );
               },
