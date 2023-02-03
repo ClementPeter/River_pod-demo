@@ -568,7 +568,7 @@
 //
 //
 //DEMO APP 5
-//Item Demo to create a Filter Search using Riverpod StateNotifier
+//::::::PROJECT 5::::::Item Demo to create a Filter Search using Riverpod StateNotifier
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -1137,7 +1137,7 @@ class MyApp extends ConsumerWidget {
 
 // ///************************************//
 
-// //ChangeNotifierProvider to pass data mutable data through our App /i nteract with the ItemDataModel
+// //ChangeNotifierProvider to pass data mutable data through our App / interact with the ItemDataModel
 // final ItemModelProvider = ChangeNotifierProvider<ItemDataModel>((ref) {
 //   return ItemDataModel();
 // });
@@ -1268,3 +1268,55 @@ class MyApp extends ConsumerWidget {
 //         );
 //       });
 // }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////::::::PROJECT 6::::::Item Demo to create a Movie Filter Search using Riverpod StateNotifier
+@immutable
+class Film {
+  final String id;
+  final String title;
+  final description;
+
+  Film({required this.id, required this.title, this.description});
+
+  Film coy
+}

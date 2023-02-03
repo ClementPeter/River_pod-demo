@@ -22,7 +22,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //             mainAxisAlignment: MainAxisAlignment.center,
 //             children: [
 //               const Text(
-//                 'Demoing STATE NOTIFIER PROVIDER alongside methods like .read .invalidate ',
+//                 'Demoing STATE PROVIDER alongside methods like .read .invalidate ',
 //               ),
 //               const SizedBox(height: 20),
 //               Center(
@@ -109,7 +109,7 @@ class StateProviderPage extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Demo of STATE NOTIFIER PROVIDER alongside methods like .read .invalidate .listen',
+            'Demo of STATE PROVIDER alongside methods like .read .invalidate .listen',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
