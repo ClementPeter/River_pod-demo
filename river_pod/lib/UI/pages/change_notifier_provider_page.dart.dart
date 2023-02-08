@@ -10,8 +10,8 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartNotifier = ref.watch(
-        cartNotifierProvider); //Watching the provider and rebuilding if there is any chnages
+    //Watching the provider and rebuilding if there is any chnages
+    final cartNotifier = ref.watch(cartNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color,
