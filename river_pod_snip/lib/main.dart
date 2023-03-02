@@ -261,6 +261,7 @@
 
 // // DEMO APP 3 Mock Weather App using FutureProvider and StateProvider Mock Data
 // // Building 6 MINI projects with Riverpod and Hooks Riverpod
+
 // import 'package:flutter/material.dart';
 // import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -297,7 +298,7 @@
 // }
 
 // typedef WeatherEmoji = String; //TypeDef helps the Code to see WeatherEmoji as a String
-// //Future to get mock data - to get mock weather data from
+// //Future to get mock data - weather Emoji serves a s String that actually returns "emojis"
 // Future<WeatherEmoji> getWeather(City city) {
 //   return Future.delayed(
 //     const Duration(seconds: 2),
@@ -305,13 +306,14 @@
 //       City.stockHolm: "❄",
 //       City.paris: "☔",
 //       City.tokyo: "⛈",
-//     }[city]!,
+//     }[city]!, //unwrap the value from the map
 //   );
 // }
 
 // /*TWO PROVIDERS DEPENDING ON ONE ANOTHER */
 // //UI Writes and reads from to this provider
 // //States Provider hold & Provides the City ENUM through the App that is mutable(manipulated by UI)
+
 // final currentCityProvider = StateProvider<City?>((ref) {
 //   return null;
 //   // return City.stockHolm; //returns the assumed initial value as "checked" when reading from this provider
@@ -319,6 +321,7 @@
 
 // //WeatherProvider listen to changes from currentCityProvider and returns the Future "getWeather" using FutureProvider
 // //UI reads from this
+
 // final weatherProvider = FutureProvider<WeatherEmoji>((ref) {
 //   final city = ref.watch(currentCityProvider);
 //   if (city != null) {
@@ -328,8 +331,11 @@
 //   }
 // });
 
-// /* */
+// ////* *//
 
+
+
+// //// APP BODY //
 // class HomePage extends ConsumerWidget {
 //   const HomePage({super.key});
 
@@ -376,8 +382,8 @@
 //                     trailing: isSelected ? const Icon(Icons.check) : null,
 //                     onTap: (() {
 //                       //A provider doesnt really have a state it is notifier that has a state -so we use the notifier to change the state
-//                       //ONTap assign the  city we sselected to the state of the notifier
-//                       //.read get a snapshot of the provider and paa the selected city
+//                       //On Tap assign the  city we selected to the state of the notifier
+//                       //.read get a snapshot of the provider and pass the selected city
 //                       ref.read(currentCityProvider.notifier).state = city;
 //                     }),
 //                   );
@@ -389,9 +395,9 @@
 //   }
 // }
 
-//
-//
-//
+
+
+
 //
 //
 //
@@ -527,7 +533,7 @@
 //     );
 //   }
 // }
-//
+
 //
 //
 //
@@ -1008,82 +1014,82 @@
 //
 
 // // // DEMO Personal Project Clone INVENTORY APP
-// import 'dart:collection';
-// import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'package:uuid/uuid.dart';
+import 'dart:collection';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
-// void main() {
-//   runApp(
-//     const ProviderScope(
-//       child: MyApp(),
-//     ),
-//   );
-// }
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Riverpod projects',
-//       darkTheme: ThemeData.dark(),
-//       themeMode: ThemeMode.dark,
-//       home: const HomePage(),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Riverpod projects',
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      home: const HomePage(),
+    );
+  }
+}
 
-// class HomePage extends ConsumerWidget {
-//   const HomePage({super.key});
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
 
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final itemModel = ref.watch(ItemModelProvider);
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Inventory"),
-//         centerTitle: true,
-//       ),
-//       body: ListView.builder(
-//         itemCount: itemModel.itemAmount,
-//         itemBuilder: ((context, index) {
-//           final item = itemModel.item[index];
-//           //print(item);
-//           return ListTile(
-//             title: GestureDetector(
-//               onTap: () async {
-//                 //pass the item -"updated data" from the dialog
-//                 final updatedItem =
-//                     await createOrUpdateItemDialog(context, item);
-//                 if (updatedItem != null) {
-//                   itemModel.update(updatedItem);
-//                 }
-//               },
-//               child: Text(item.displayName),
-//             ),
-//           );
-//         }),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () async {
-//           final item = await createOrUpdateItemDialog(context);
-//           print("::::::::::::::::::::::::::::$item");
-//           //verify then update the ChangeNotifierProvider
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final itemModel = ref.watch(ItemModelProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Inventory"),
+        centerTitle: true,
+      ),
+      body: ListView.builder(
+        itemCount: itemModel.itemAmount,
+        itemBuilder: ((context, index) {
+          final item = itemModel.item[index];
+          //print(item);
+          return ListTile(
+            title: GestureDetector(
+              onTap: () async {
+                //pass the item -"updated data" from the dialog
+                final updatedItem =
+                    await createOrUpdateItemDialog(context, item);
+                if (updatedItem != null) {
+                  itemModel.update(updatedItem);
+                }
+              },
+              child: Text(item.displayName),
+            ),
+          );
+        }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final item = await createOrUpdateItemDialog(context);
+          print("::::::::::::::::::::::::::::$item");
+          //verify then update the ChangeNotifierProvider
 
-//           //if item is avaible add it to the List
-//           if (item != null) {
-//             //we read cos we need to get a snapshot of what is in the list already
-//             final dataModel = ref.read(ItemModelProvider);
-//             dataModel.add(item);
-//           }
-//         },
-//         child: const Icon(Icons.add),
-//       ),
-//     );
-//   }
-// }
+          //if item is avaible add it to the List
+          if (item != null) {
+            //we read cos we need to get a snapshot of what is in the list already
+            final dataModel = ref.read(ItemModelProvider);
+            dataModel.add(item);
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
 
 // ///
 // //
@@ -1092,186 +1098,186 @@
 // //
 // //
 
-// // class to for creation of Items
-// @immutable
-// class Item {
-//   final String name;
-//   final int unit;
-//   final String uuid;
+// class to for creation of Items
+@immutable
+class Item {
+  final String name;
+  final int unit;
+  final String uuid;
 
-//   Item({required this.name, required this.unit, String? uuid})
-//       : uuid = uuid ?? const Uuid().v4();
+  Item({required this.name, required this.unit, String? uuid})
+      : uuid = uuid ?? const Uuid().v4();
 
-//   //function to update an item - A subtype of the Parent clas
-//   Item updated([String? name, int? unit]) => Item(
-//         name: name ?? this.name,
-//         unit: unit ?? this.unit,
-//         uuid: uuid,
-//       );
+  //function to update an item - A subtype of the Parent class
+  Item updated([String? name, int? unit]) => Item(
+        name: name ?? this.name,
+        unit: unit ?? this.unit,
+        uuid: uuid,
+      );
 
-//   //get the display UI name
-//   String get displayName => "$name $unit unit(s)";
+  //get the display UI name
+  String get displayName => "$name $unit unit(s)";
 
-//   //to compare and make sure the object is unique - NECCESSARY : helps us to update stuff
-//   //the operator checks the uuid property of the "other" object to see if its equal to the object being compared too
-//   //covariant specifies that the "other" can be a subtype of the object being compared - "ChatGPT"
+  //to compare and make sure the object is unique - NECCESSARY : helps us to update stuff
+  //the operator checks the uuid property of the "other" object to see if its equal to the object being compared too
+  //covariant specifies that the "other" can be a subtype of the object being compared - "ChatGPT"
 
-//   @override
-//   bool operator ==(covariant Item other) => uuid == other.uuid;
+  @override
+  bool operator ==(covariant Item other) => uuid == other.uuid;
 
-//   //needed by the compare operator
-//   @override
-//   // TODO: implement hashCode
-//   int get hashCode => super.hashCode;
+  //needed by the compare operator
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
 
-//   // @override
-//   // int get hashcode => uuid.hashCode;
+  // @override
+  // int get hashcode => uuid.hashCode;
 
-//   //check if this is necessary - NOT NECESSARY
-//   //returning to String method for debugging, logging or display purposes
+  //check if this is necessary - NOT NECESSARY
+  //returning to String method for debugging, logging or display purposes
 
-//   //@override
-//   //String toString() => "Item(name: $name, unit: $unit, uuid : $uuid)";
+  //@override
+  //String toString() => "Item(name: $name, unit: $unit, uuid : $uuid)";
 
-// }
+}
 
-// ///************************************//
+///************************************//
 
-// //ChangeNotifierProvider to pass data mutable data through our App / interact with the ItemDataModel
-// final ItemModelProvider = ChangeNotifierProvider<ItemDataModel>((ref) {
-//   return ItemDataModel();
-// });
+//ChangeNotifierProvider to pass data mutable data through our App / interact with the ItemDataModel
+final ItemModelProvider = ChangeNotifierProvider<ItemDataModel>((ref) {
+  return ItemDataModel();
+});
 
-// //ChangeNotifier class to help us add and modify to our List
-// class ItemDataModel extends ChangeNotifier {
-//   //Hold the list of Individual Item Objects
+//ChangeNotifier class to help us add and modify to our List
+class ItemDataModel extends ChangeNotifier {
+  //Hold the list of Individual Item Objects
 
-//   final List<Item> _item = [
-//     Item(name: "Rifle", unit: 20),
-//   ];
+  final List<Item> _item = [
+    Item(name: "Rifle", unit: 20),
+  ];
 
-//   int get itemAmount => _item.length;
+  int get itemAmount => _item.length;
 
-//   //getter for the List that cant be modified but can be added too
-//   UnmodifiableListView get item => UnmodifiableListView(_item);
+  //getter for the List that cant be modified but can be added too
+  UnmodifiableListView get item => UnmodifiableListView(_item);
 
-//   //Add a item to the List
-//   void add(Item item) {
-//     _item.add(item);
-//     //print("from add funtion::::::::::::::::::::::::::::::::::::::::::::$_item");
-//     notifyListeners();
-//   }
+  //Add a item to the List
+  void add(Item item) {
+    _item.add(item);
+    //print("from add funtion::::::::::::::::::::::::::::::::::::::::::::$_item");
+    notifyListeners();
+  }
 
-//   void update(Item updatedItem) {
-//     //To update an item we have check if the item exist to first locate the item
-//     //Get the Index - Check the "item" List to see if the passed item has been indexed already
-//     //returns a number as the "index"
-//     final index = _item.indexOf(updatedItem);
-//     //get the item from the index
-//     final oldItem = _item[index];
+  void update(Item updatedItem) {
+    //To update an item we have check if the item exist to first locate the item
+    //Get the Index - Check the "item" List to see if the passed item has been indexed already
+    //returns a number as the "index"
+    final index = _item.indexOf(updatedItem);
+    //get the item from the index
+    final oldItem = _item[index];
 
-//     //compare both values -then update the previus value
-//     if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
-//       _item[index] = oldItem.updated(
-//         updatedItem.name,
-//         updatedItem.unit,
-//       );
-//       notifyListeners();
-//     }
-//   }
-// }
+    //compare both values -then update the previous value
+    if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
+      _item[index] = oldItem.updated(
+        updatedItem.name,
+        updatedItem.unit,
+      );
+      notifyListeners();
+    }
+  }
+}
 
-// //*******************************************************//
+//*******************************************************//
 
-// //creating the dialog funtion used by the ListTile and FAB
-// final nameController = TextEditingController();
-// final unitController = TextEditingController();
+//creating the dialog function used by the ListTile and FAB
+final nameController = TextEditingController();
+final unitController = TextEditingController();
 
-// //showDialog needs ctx and
-// //also existing item is needed when we need to update a item via the ListTile
-// Future<Item?> createOrUpdateItemDialog(BuildContext context,
-//     [Item? existingItem]) {
-//   //Holds the value from Onchanged coming from text fields
-//   String? name = existingItem?.name;
-//   int? unit = existingItem?.unit;
+//showDialog needs ctx and
+//also existing item is needed when we need to update a item via the ListTile
+Future<Item?> createOrUpdateItemDialog(BuildContext context,
+    [Item? existingItem]) {
+  //Holds the value from Onchanged coming from text fields
+  String? name = existingItem?.name;
+  int? unit = existingItem?.unit;
 
-//   //Assigning values to the controllers
-//   nameController.text = name ?? "";
-//   unitController.text = unit?.toString() ?? "";
+  //Assigning values to the controllers
+  nameController.text = name ?? "";
+  unitController.text = unit?.toString() ?? "";
 
-//   return showDialog<Item?>(
-//       context: context,
-//       builder: (context) {
-//         return AlertDialog(
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               TextField(
-//                 controller: nameController,
-//                 decoration: const InputDecoration(hintText: "Enter name here"),
-//                 onChanged: ((value) {
-//                   name = value; //pass the value from text field into name
-//                 }),
-//               ),
-//               TextField(
-//                 controller: unitController,
-//                 decoration: const InputDecoration(
-//                     hintText: "Enter amount of items here"),
-//                 onChanged: ((value) {
-//                   unit = int.tryParse(value);
-//                 }),
-//               ),
-//             ],
-//           ),
-//           actions: [
-//             TextButton(
-//               child: const Text("Cancel"),
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//             TextButton(
-//               child: const Text("Save"),
-//               onPressed: () {
-//                 //verify text fields are not empty before saving
-//                 if (name != null && unit != null) {
-//                   //pass in the values directly to pop the scren
-//                   // Navigator.of(context).pop(Item(name: name!, unit: unit!));
-//                   if (existingItem != null) {
-//                     //if an item existed ; update it
-//                     final newItem = existingItem.updated(
-//                       name,
-//                       unit,
-//                     );
-//                     Navigator.of(context).pop(newItem);
-//                   } else {
-//                     Navigator.of(context).pop(Item(name: name!, unit: unit!));
-//                     //or longer route - uncomment this
-//                     //print(":::::::::::::::::::::::::::::$newItem");
-//                     //final newItem = Item(name: name!, unit: unit!);
-//                     //Navigator.of(context).pop(newItem);
+  return showDialog<Item?>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(hintText: "Enter name here"),
+                onChanged: ((value) {
+                  name = value; //pass the value from text field into name
+                }),
+              ),
+              TextField(
+                controller: unitController,
+                decoration: const InputDecoration(
+                    hintText: "Enter amount of items here"),
+                onChanged: ((value) {
+                  unit = int.tryParse(value);
+                }),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text("Save"),
+              onPressed: () {
+                //verify text fields are not empty before saving
+                if (name != null && unit != null) {
+                  //pass in the values directly to pop the scren
+                  // Navigator.of(context).pop(Item(name: name!, unit: unit!));
+                  if (existingItem != null) {
+                    //if an item existed ; update it
+                    final newItem = existingItem.updated(
+                      name,
+                      unit,
+                    );
+                    Navigator.of(context).pop(newItem);
+                  } else {
+                    Navigator.of(context).pop(Item(name: name!, unit: unit!));
+                    //or longer route - uncomment this
+                    //print(":::::::::::::::::::::::::::::$newItem");
+                    //final newItem = Item(name: name!, unit: unit!);
+                    //Navigator.of(context).pop(newItem);
 
-//                   }
-//                 } else {
-//                   ScaffoldMessenger.of(context).showSnackBar(
-//                     const SnackBar(
-//                       duration: Duration(seconds: 1),
-//                       backgroundColor: Colors.red,
-//                       content: Text("Fill in the fields"),
-//                     ),
-//                   );
-//                   // Navigator.of(context).pop();
-//                 }
-//               },
-//             ),
-//           ],
-//         );
-//       });
-// }
-//
-//
-//
-//
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(seconds: 1),
+                      backgroundColor: Colors.red,
+                      content: Text("Fill in the fields"),
+                    ),
+                  );
+                  // Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      });
+}
+
+
+
+
 //
 //
 //
@@ -1311,250 +1317,250 @@
 
 ////::::::PROJECT 6 - LAST ::::::Demo to create a Movie Filter Search using Riverpod StateNotifier
 
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:flutter/material.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-//::::::::::::::::::LOGIC ::::::::::::::::::::::://
+// //::::::::::::::::::LOGIC ::::::::::::::::::::::://
 
-//@immutable
-class Film {
-  final String? id;
-  final String? title;
-  final String? description;
-  final bool isFavourite;
+// //@immutable
+// class Film {
+//   final String? id;
+//   final String? title;
+//   final String? description;
+//   final bool isFavourite;
 
-  const Film({
-     this.id,
-     this.title,
-     this.description,
-    required this.isFavourite,
-  });
+//   const Film({
+//      this.id,
+//      this.title,
+//      this.description,
+//     required this.isFavourite,
+//   });
 
-  //copy function to change the content in favourite
-  Film copy({required bool isFavourite}) => Film(
-        // id: id,
-        // title: title,
-        // description: description,
-        isFavourite: isFavourite,
-      );
+//   //copy function to change the content in favourite
+//   Film copyWith({required bool isFavourite}) => Film(
+//         id: id,
+//         title: title,
+//         description: description,
+//         isFavourite: isFavourite,
+//       );
 
-  //create toString override
-  @override
-  String toString() {
-    return 'Film(id: $id, title: $title, description: $description, isFavourite: $isFavourite)';
-  }
+//   //create toString override
+//   @override
+//   String toString() {
+//     return 'Film(id: $id, title: $title, description: $description, isFavourite: $isFavourite)';
+//   }
 
-  bool operator ==(covariant Film other) =>
-      id == other.id && isFavourite == other.isFavourite;
+//   bool operator ==(covariant Film other) =>
+//       id == other.id && isFavourite == other.isFavourite;
 
-  // @override
-  // // TODO: implement hashCode
-  // int get hashCode => super.hashCode;
+//   @override
+//   // TODO: implement hashCode
+//   int get hashCode => super.hashCode;
 
-  @override
-  int get hashCode => Object.hashAll([id, isFavourite]);
-}
+//   // @override
+//   // int get hashCode => Object.hashAll([id, isFavourite]);
+// }
 
-//List of Films
-const allFilms = [
-  Film(
-    id: "1",
-    title: "Movie 1",
-    description: "Movie 1 Description",
-    isFavourite: false,
-  ),
-  Film(
-    id: "2",
-    title: "Movie 2",
-    description: "Movie 2 Description",
-    isFavourite: false,
-  ),
-  Film(
-    id: "3",
-    title: "Movie 3",
-    description: "Movie 3 Description",
-    isFavourite: false,
-  ),
-  Film(
-    id: "4",
-    title: "Movie 4",
-    description: "Movie 4 Description",
-    isFavourite: false,
-  ),
-  Film(
-    id: "5",
-    title: "Movie 5",
-    description: "Movie 5 Description",
-    isFavourite: false,
-  ),
-];
+// //List of Films
+// const allFilms = [
+//   Film(
+//     id: "1",
+//     title: "Movie 1",
+//     description: "Movie 1 Description",
+//     isFavourite: false,
+//   ),
+//   Film(
+//     id: "2",
+//     title: "Movie 2",
+//     description: "Movie 2 Description",
+//     isFavourite: false,
+//   ),
+//   Film(
+//     id: "3",
+//     title: "Movie 3",
+//     description: "Movie 3 Description",
+//     isFavourite: false,
+//   ),
+//   Film(
+//     id: "4",
+//     title: "Movie 4",
+//     description: "Movie 4 Description",
+//     isFavourite: false,
+//   ),
+//   Film(
+//     id: "5",
+//     title: "Movie 5",
+//     description: "Movie 5 Description",
+//     isFavourite: false,
+//   ),
+// ];
 
-//Films Notifier modifies the state of the "allFilms" List using StateNotifer
-class FilmsNotifier extends StateNotifier<List<Film>> {
-  FilmsNotifier() : super(allFilms);
+// //Films Notifier modifies the state of the "allFilms" List using StateNotifer
+// class FilmsNotifier extends StateNotifier<List<Film>> {
+//   FilmsNotifier() : super(allFilms);
 
-  void update(Film film, bool isFavourite) {
-    //check through the contents in the state and if the id is the same
-    //in order to replace it in "state" which is  a List of things
+//   void update(Film film, bool isFavourite) {
+//     //check through the contents in the state and if the id is the same
+//     //in order to replace it in "state" which is  a List of things
 
-    state = state.map(
-      (thisFilm) => thisFilm.id == film.id
-        ? thisFilm.copy(isFavourite: isFavourite)
-        : thisFilm
-    ).toList();
+//     state = state.map(
+//       (thisFilm) => thisFilm.id == film.id
+//         ? thisFilm.copyWith(isFavourite: isFavourite)
+//         : thisFilm
+//     ).toList();
 
      
-  }
-}
+//   }
+// }
 
-final allFilmsProvider =
-    StateNotifierProvider<FilmsNotifier, List<Film>>((ref) => FilmsNotifier());
+// final allFilmsProvider =
+//     StateNotifierProvider<FilmsNotifier, List<Film>>((ref) => FilmsNotifier());
 
-//Watching allFilmsProvider to get the selected favourites and non favourites from allFilmsProvider
-final favoriteFilmProvider = Provider<Iterable<Film>>(
-  (ref) => ref.watch(allFilmsProvider).where((film) => film.isFavourite),
-);
+// //Watching allFilmsProvider to get the selected favourites and non favourites from allFilmsProvider
+// final favoriteFilmProvider = Provider<Iterable<Film>>(
+//   (ref) => ref.watch(allFilmsProvider).where((film) => film.isFavourite),
+// );
 
-final notfavoriteFilmProvider = Provider<Iterable<Film>>(
-    (ref) => ref.watch(allFilmsProvider).where((film) => !film.isFavourite));
+// final notfavoriteFilmProvider = Provider<Iterable<Film>>(
+//     (ref) => ref.watch(allFilmsProvider).where((film) => !film.isFavourite));
 
-///////Enums for DropDownMenu items
-enum FavouriteStatus {
-  all,
-  favourite,
-  notFavourite,
-}
+// ///////Enums for DropDownMenu items
+// enum FavouriteStatus {
+//   all,
+//   favourite,
+//   notFavourite,
+// }
 
-//Provider for the DropDownMenu - StateProvider
-final favouriteStatusProvider = StateProvider<FavouriteStatus>((ref) {
-  return FavouriteStatus.all;
-});
+// //Provider for the DropDownMenu - StateProvider
+// final favouriteStatusProvider = StateProvider<FavouriteStatus>((ref) {
+//   return FavouriteStatus.all;
+// });
 
-//Creating Widget subcomponent for the Dropdown filter and Movie content ListView
+// //Creating Widget subcomponent for the Dropdown filter and Movie content ListView
 
-//FilmList would depend on 2 PROVIDERS (favoriteFilmProvider & notfavoriteFilmProvider) to change state
-class FilmList extends ConsumerWidget {
-  //To pass a provider to a class it has to be of type AlwaysAliveProviderBase
-  final AlwaysAliveProviderBase<Iterable<Film>> provider;
+// //FilmList would depend on 2 PROVIDERS (favoriteFilmProvider & notfavoriteFilmProvider) to change state
+// class FilmList extends ConsumerWidget {
+//   //To pass a provider to a class it has to be of type AlwaysAliveProviderBase
+//   final AlwaysAliveProviderBase<Iterable<Film>> provider;
 
-  const FilmList({required this.provider, super.key});
+//   const FilmList({required this.provider, super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final films = ref.watch(provider);
-    return Expanded(
-      child: ListView.builder(
-        itemCount: films.length,
-        itemBuilder: ((context, index) {
-          final film = films.elementAt(index);
-          final favouriteIcon = film.isFavourite
-              ? const Icon(Icons.favorite)
-              : const Icon(Icons.favorite_border);
-          return ListTile(
-            title: Text(film.id!),
-            subtitle: Text(film.description!
-            ),
-            trailing: IconButton(
-              icon: favouriteIcon,
-              onPressed: () {
-                final isFavourite = !film.isFavourite;
-                //onpress of this button we want to notify the FilmsNotifier
-                // but we have to do that through the "allFilmsProvider" StateNotifierProvider
-                //- NECESSARY
-                ref.read(allFilmsProvider.notifier).update(film, isFavourite);
-              },
-            ),
-          );
-        }),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final films = ref.watch(provider);
+//     return Expanded(
+//       child: ListView.builder(
+//         itemCount: films.length,
+//         itemBuilder: ((context, index) {
+//           final film = films.elementAt(index);
+//           final favouriteIcon = film.isFavourite
+//               ? const Icon(Icons.favorite)
+//               : const Icon(Icons.favorite_border);
+//           return ListTile(
+//             title: Text(film.id!),
+//             subtitle: Text(film.description!
+//             ),
+//             trailing: IconButton(
+//               icon: favouriteIcon,
+//               onPressed: () {
+//                 final isFavourite = !film.isFavourite;
+//                 //onpress of this button we want to notify the FilmsNotifier
+//                 // but we have to do that through the "allFilmsProvider" StateNotifierProvider
+//                 //- NECESSARY
+//                 ref.read(allFilmsProvider.notifier).update(film, isFavourite);
+//               },
+//             ),
+//           );
+//         }),
+//       ),
+//     );
+//   }
+// }
 
-//FilterWidget would depend on 1 PROVIDER (favouriteStatusProvider) to change its state
-class FilterWidget extends ConsumerWidget {
-  const FilterWidget({super.key});
+// //FilterWidget would depend on 1 PROVIDER (favouriteStatusProvider) to change its state
+// class FilterWidget extends ConsumerWidget {
+//   const FilterWidget({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Consumer(builder: (context, WidgetRef ref, child) {
-      return DropdownButton(
-        value: ref.watch(favouriteStatusProvider),
-        onChanged: (value) {
-          ref.read(favouriteStatusProvider.notifier).state =
-              value!; ///////////////////////////CHECK - works with notifier
-        },
-        //mapping Enums values to DropdownMenuItem
-        items: FavouriteStatus.values
-            .map(
-              (status) => DropdownMenuItem(
-                value: status,
-                child: Text(status.toString().split(".").last),
-              ),
-            )
-            .toList(),
-      );
-    });
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Consumer(builder: (context, WidgetRef ref, child) {
+//       return DropdownButton(
+//         value: ref.watch(favouriteStatusProvider),
+//         onChanged: (value) {
+//           ref.read(favouriteStatusProvider.notifier).state =
+//               value!; ///////////////////////////CHECK - works with notifier
+//         },
+//         //mapping Enums values to DropdownMenuItem
+//         items: FavouriteStatus.values
+//             .map(
+//               (status) => DropdownMenuItem(
+//                 value: status,
+//                 child: Text(status.toString().split(".").last),
+//               ),
+//             )
+//             .toList(),
+//       );
+//     });
+//   }
+// }
 
-void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     const ProviderScope(
+//       child: MyApp(),
+//     ),
+//   );
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Riverpod projects',
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.dark,
-      home: const HomePage(),
-    );
-  }
-}
-//
-//
-//
-//
-//::::::::::::::::::MAIN APP BODY ::::::::::::::::::::::://
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Riverpod projects',
+//       darkTheme: ThemeData.dark(),
+//       themeMode: ThemeMode.dark,
+//       home: const HomePage(),
+//     );
+//   }
+// }
+// //
+// //
+// //
+// //
+// //::::::::::::::::::MAIN APP BODY ::::::::::::::::::::::://
 
-class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    //final currentDate = ref.watch(currentDateProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Hooks Riverpod"),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          const FilterWidget(),
-          Consumer(
-            builder: (context, ref, child) {
-              final filter = ref.watch(favouriteStatusProvider);
-              switch (filter) {
-                case FavouriteStatus.all:
-                  return FilmList(provider: allFilmsProvider);
-                case FavouriteStatus.favourite:
-                  return FilmList(provider: favoriteFilmProvider);
-                case FavouriteStatus.notFavourite:
-                  return FilmList(provider: notfavoriteFilmProvider);
-              }
-              //  return ;
-            },
-          )
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     //final currentDate = ref.watch(currentDateProvider);
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("Hooks Riverpod"),
+//         centerTitle: true,
+//       ),
+//       body: Column(
+//         children: [
+//           const FilterWidget(),
+//           Consumer(
+//             builder: (context, ref, child) {
+//               final filter = ref.watch(favouriteStatusProvider);
+//               switch (filter) {
+//                 case FavouriteStatus.all:
+//                   return FilmList(provider: allFilmsProvider);
+//                 case FavouriteStatus.favourite:
+//                   return FilmList(provider: favoriteFilmProvider);
+//                 case FavouriteStatus.notFavourite:
+//                   return FilmList(provider: notfavoriteFilmProvider);
+//               }
+//               //  return ;
+//             },
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
