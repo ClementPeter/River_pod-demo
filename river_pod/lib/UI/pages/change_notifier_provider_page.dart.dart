@@ -4,6 +4,7 @@ import 'package:river_pod/models/product.dart';
 import 'package:river_pod/services/cart_change_notifier.dart';
 
 //Demo of ChangeNotiferProvider to add product to cart
+//This file works along with cart_change_notifier.dart
 class ChangeNotifierProviderPage extends ConsumerWidget {
   const ChangeNotifierProviderPage({this.color, super.key});
   final Color? color;
@@ -15,13 +16,12 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: color,
-        title: const Text(" Change Notifier Provider"),
+        title: const Text("Change Notifier Provider"),
         centerTitle: true,
         actions: [
           Stack(
             alignment: Alignment.center,
-            children: [
-              //const Icon(Icons.shopping_cart),
+            children: [             
               IconButton(
                 onPressed: () {
                   showDialog(

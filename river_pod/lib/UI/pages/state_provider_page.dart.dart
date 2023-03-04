@@ -22,7 +22,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //             mainAxisAlignment: MainAxisAlignment.center,
 //             children: [
 //               const Text(
-//                 'Demoing STATE PROVIDER alongside methods like .read .invalidate ',
+//                 'Demo of STATE PROVIDER alongside methods like .read .invalidate ',
 //               ),
 //               const SizedBox(height: 20),
 //               Center(
@@ -88,7 +88,7 @@ class StateProviderPage extends ConsumerWidget {
     final value = ref.watch(
         valueStateProvider); //returns the value by the provider and rebuild if the value changes
 
-    //.LISTEN : method to listen to provider help and perfomm specific action based on listened value
+    //.LISTEN : method to listen to provider help and perform specific action based on listened value
 
     ref.listen<int>(valueStateProvider, (previous, current) {
       if (current == 65) {
@@ -115,7 +115,7 @@ class StateProviderPage extends ConsumerWidget {
           const SizedBox(height: 20),
           Center(
             child: Text(
-              "This is the value from State Provider is\n $value \n and the value can be updated since the provider type is of STATE PROVIDER",
+              "This is the value from State Provider \n $value \n and the value can be updated since the provider type is of STATE PROVIDER",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline5,
             ),

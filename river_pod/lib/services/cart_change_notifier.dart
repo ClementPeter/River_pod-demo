@@ -10,7 +10,7 @@ final cartNotifierProvider = ChangeNotifierProvider<CartNotifier>((ref) {
 
 class CartNotifier extends ChangeNotifier {
   //Empty list that hold the Product when any of the methods are called
-  List<Product> _cart = [];
+  final List<Product> _cart = [];
 
   get cart => _cart;
 

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/models/product.dart';
 import 'package:river_pod/services/cart_state_notifier.dart';
 
+//This File works along with cart_state_notifier.dart
 class StateNotifierProviderPage extends ConsumerWidget {
   const StateNotifierProviderPage({this.color, super.key});
 

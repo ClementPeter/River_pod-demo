@@ -34,7 +34,7 @@ class FutureProviderPage extends ConsumerWidget {
           child: ListView(
             children: [
               Center(
-                //handle the FutureProvide changes with .when
+                //handle the FutureProvider changes with .when
                 child: suggestionReference.when(data: ((data) {
                   return Text(
                     data.activity!,
