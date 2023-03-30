@@ -227,15 +227,15 @@ class HomePage extends ConsumerWidget {
         child: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
-            // ref
-            //     .read(counterStateNotifierProvider.notifier)
-            //     .increment(); //Works-but Doesn't rebuild the widget(FAB) everytime it is clicked - SAFER TO USE
+            ref
+                .read(counterStateNotifierProvider.notifier)
+                .increment(); //Works-but Doesn't rebuild the (FAB) widget everytime it is clicked - SAFER TO USE
 
             //OR
 
-            ref
-                .watch(counterStateNotifierProvider.notifier)
-                .increment(); //Also Works -but rebuild the widget everytime - CAN AFFECT APP PERFORMANCE IN LARGE PROJECT
+            // ref
+            //     .watch(counterStateNotifierProvider.notifier)
+            //     .increment(); //Also Works -but rebuild the (FAB) widget everytime - CAN AFFECT APP PERFORMANCE IN LARGE PROJECT
           },
         ),
       ),
