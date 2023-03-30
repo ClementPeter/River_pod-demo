@@ -1,19 +1,19 @@
 // import 'package:flutter/material.dart';
 // import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-////Building 7 MINI projects with Riverpod and Hooks Riverpod
+// ////Building 7 MINI projects with Riverpod and Hooks Riverpod
 
-//To run the project properly ;
-/*Be aware that individual projects are separated by the LONG COMMENT
-  and short comment are just for Formatting GAPS to avoid congestion
-  */
+// //To run the project properly ;
+// /*Be aware that individual projects are separated by the LONG COMMENT
+//   and short comment are just for Formatting GAPS to avoid congestion
+//   */
 
-// UNCOMMENT ONE PROJECT AT A TIME TO AVOID ERRORS !
+// // UNCOMMENT ONE PROJECT AT A TIME TO AVOID ERRORS !
 
-//::::::PROJECT 1::::::Show current Time using PROVIDER from Riverpod
+// //::::::PROJECT 1::::::Show current Time using PROVIDER from Riverpod
 // void main() {
 //   runApp(
-//     ProviderScope(
+//     const ProviderScope(
 //       child: const MyApp(),
 //     ),
 //   );
@@ -111,7 +111,7 @@
 //
 //
 ////::::::PROJECT 2::::::DEMO APP 2 using StateNotiferProvider
-//Building 6 MINI projects with Riverpod and Hooks Riverpod
+//Building 6 MINI projects with Riverpod and Hooks Riverpod -  Counter App with Riverpod
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -178,7 +178,7 @@ class Counter extends StateNotifier {
 }
 
 //StateNotifierProvider is the provider that allows us to access and use StateNotifier
-final counterProvider = StateNotifierProvider((ref) {
+final counterStateNotifierProvider = StateNotifierProvider((ref) {
   return Counter();
 });
 
@@ -194,7 +194,7 @@ class HomePage extends ConsumerWidget {
         //the entire scaffold when the counter value changes
         title: Consumer(
           builder: ((context, ref, child) {
-            final counter = ref.watch(counterProvider);
+            final counter = ref.read(counterStateNotifierProvider);
             final text = counter == null ? "Press to begin" : "$counter";
             return Text(text);
           }),
@@ -208,15 +208,39 @@ class HomePage extends ConsumerWidget {
             //text button
             TextButton(
               // onPressed: (() {
-              //   ref.read(counterProvider.notifier).increment();
+              //   ref.read(counterStateNotifierProvider.notifier).increment();
               // }),
-              onPressed: ref.read(counterProvider.notifier).increment,
+              onPressed:
+                  ref.watch(counterStateNotifierProvider.notifier).increment,
 
               child: const Text("Increment"),
             ),
           ],
         ),
       ),
+      // floatingActionButton: FloatingActionButton.miniCenterDocked (onPressed: (() {
+
+      // }),
+      //mini docked FAB
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            // ref
+            //     .read(counterStateNotifierProvider.notifier)
+            //     .increment(); //Works-but Doesn't rebuild the widget(FAB) everytime it is clicked - SAFER TO USE
+
+            //OR
+
+            ref
+                .watch(counterStateNotifierProvider.notifier)
+                .increment(); //Also Works -but rebuild the widget everytime - CAN AFFECT APP PERFORMANCE IN LARGE PROJECT
+          },
+        ),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }
@@ -297,8 +321,9 @@ class HomePage extends ConsumerWidget {
 //   tokyo,
 // }
 
-// typedef WeatherEmoji = String; //TypeDef helps the Code to see WeatherEmoji as a String
-// //Future to get mock data - weather Emoji serves a s String that actually returns "emojis"
+// typedef WeatherEmoji
+//     = String; //TypeDef helps the Code to see WeatherEmoji as a String
+// // //Future to get mock data - weather Emoji serves a s String that actually returns "emojis"
 // Future<WeatherEmoji> getWeather(City city) {
 //   return Future.delayed(
 //     const Duration(seconds: 2),
@@ -342,54 +367,55 @@ class HomePage extends ConsumerWidget {
 //     //watching the weatherProvider which is of type FutureProvider
 //     final currentWeather = ref.watch(weatherProvider);
 //     return Scaffold(
-//         appBar: AppBar(
-//           title: const Text("Weather"),
-//           centerTitle: true,
-//         ),
-//         body: Column(
-//           children: [
-//             //resolving the FutureProvider using .when
-//             currentWeather.when(
-//               data: ((data) {
-//                 return Padding(
-//                   padding: const EdgeInsets.all(8.0),
-//                   child: Text(
-//                     data.toString(),
-//                     style: const TextStyle(fontSize: 30),
-//                   ),
+//       appBar: AppBar(
+//         title: const Text("Weather"),
+//         centerTitle: true,
+//       ),
+//       body: Column(
+//         children: [
+//           //resolving the FutureProvider using .when
+//           currentWeather.when(
+//             data: ((data) {
+//               return Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: Text(
+//                   data.toString(),
+//                   style: const TextStyle(fontSize: 30),
+//                 ),
+//               );
+//             }),
+//             loading: (() {
+//               return const Padding(
+//                 padding: EdgeInsets.all(8.0),
+//                 child: CircularProgressIndicator(),
+//               );
+//             }),
+//             error: ((error, stack) {
+//               return Text(error.toString());
+//             }),
+//           ),
+//           Expanded(
+//             child: ListView.builder(
+//               itemCount: City.values.length,
+//               itemBuilder: (context, index) {
+//                 final city = City.values[index];
+//                 final isSelected = city == ref.watch(currentCityProvider);
+//                 return ListTile(
+//                   title: Text(city.toString()),
+//                   trailing: isSelected ? const Icon(Icons.check) : null,
+//                   onTap: (() {
+//                     //A provider doesnt really have a state it is notifier that has a state -so we use the notifier to change the state
+//                     //On Tap assign the  city we selected to the state of the notifier
+//                     //.read get a snapshot of the provider and pass the selected city
+//                     ref.read(currentCityProvider.notifier).state = city;
+//                   }),
 //                 );
-//               }),
-//               loading: (() {
-//                 return const Padding(
-//                   padding: EdgeInsets.all(8.0),
-//                   child: CircularProgressIndicator(),
-//                 );
-//               }),
-//               error: ((error, stack) {
-//                 return Text(error.toString());
-//               }),
+//               },
 //             ),
-//             Expanded(
-//               child: ListView.builder(
-//                 itemCount: City.values.length,
-//                 itemBuilder: (context, index) {
-//                   final city = City.values[index];
-//                   final isSelected = city == ref.watch(currentCityProvider);
-//                   return ListTile(
-//                     title: Text(city.toString()),
-//                     trailing: isSelected ? const Icon(Icons.check) : null,
-//                     onTap: (() {
-//                       //A provider doesnt really have a state it is notifier that has a state -so we use the notifier to change the state
-//                       //On Tap assign the  city we selected to the state of the notifier
-//                       //.read get a snapshot of the provider and pass the selected city
-//                       ref.read(currentCityProvider.notifier).state = city;
-//                     }),
-//                   );
-//                 },
-//               ),
-//             )
-//           ],
-//         ),);
+//           )
+//         ],
+//       ),
+//     );
 //   }
 // }
 
@@ -885,266 +911,266 @@ class HomePage extends ConsumerWidget {
 // //
 
 // // // // DEMO Personal Project Clone INVENTORY APP
-// // import 'dart:collection';
-// // import 'package:flutter/material.dart';
-// // import 'package:hooks_riverpod/hooks_riverpod.dart';
-// // import 'package:uuid/uuid.dart';
+// import 'dart:collection';
+// import 'package:flutter/material.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:uuid/uuid.dart';
 
-// // void main() {
-// //   runApp(
-// //     const ProviderScope(
-// //       child: MyApp(),
-// //     ),
-// //   );
-// // }
+// void main() {
+//   runApp(
+//     const ProviderScope(
+//       child: MyApp(),
+//     ),
+//   );
+// }
 
-// // class MyApp extends StatelessWidget {
-// //   const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return MaterialApp(
-// //       title: 'Riverpod projects',
-// //       darkTheme: ThemeData.dark(),
-// //       themeMode: ThemeMode.dark,
-// //       home: const HomePage(),
-// //     );
-// //   }
-// // }
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Riverpod projects',
+//       darkTheme: ThemeData.dark(),
+//       themeMode: ThemeMode.dark,
+//       home: const HomePage(),
+//     );
+//   }
+// }
 
-// // class HomePage extends ConsumerWidget {
-// //   const HomePage({super.key});
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
 
-// //   @override
-// //   Widget build(BuildContext context, WidgetRef ref) {
-// //     final itemModel = ref.watch(ItemModelProvider);
-// //     return Scaffold(
-// //       appBar: AppBar(
-// //         title: const Text("Inventory"),
-// //         centerTitle: true,
-// //       ),
-// //       body: ListView.builder(
-// //         itemCount: itemModel.itemAmount,
-// //         itemBuilder: ((context, index) {
-// //           final item = itemModel.item[index];
-// //           //print(item);
-// //           return ListTile(
-// //             title: GestureDetector(
-// //               onTap: () async {
-// //                 //pass the item -"updated data" from the dialog
-// //                 final updatedItem =
-// //                     await createOrUpdateItemDialog(context, item);
-// //                 if (updatedItem != null) {
-// //                   itemModel.update(updatedItem);
-// //                 }
-// //               },
-// //               child: Text(item.displayName),
-// //             ),
-// //           );
-// //         }),
-// //       ),
-// //       floatingActionButton: FloatingActionButton(
-// //         onPressed: () async {
-// //           final item = await createOrUpdateItemDialog(context);
-// //           print("::::::::::::::::::::::::::::$item");
-// //           //verify then update the ChangeNotifierProvider
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final itemModel = ref.watch(ItemModelProvider);
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("Inventory"),
+//         centerTitle: true,
+//       ),
+//       body: ListView.builder(
+//         itemCount: itemModel.itemAmount,
+//         itemBuilder: ((context, index) {
+//           final item = itemModel.item[index];
+//           //print(item);
+//           return ListTile(
+//             title: GestureDetector(
+//               onTap: () async {
+//                 //pass the item -"updated data" from the dialog
+//                 final updatedItem =
+//                     await createOrUpdateItemDialog(context, item);
+//                 if (updatedItem != null) {
+//                   itemModel.update(updatedItem);
+//                 }
+//               },
+//               child: Text(item.displayName),
+//             ),
+//           );
+//         }),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () async {
+//           final item = await createOrUpdateItemDialog(context);
+//           print("::::::::::::::::::::::::::::$item");
+//           //verify then update the ChangeNotifierProvider
 
-// //           //if item is avaible add it to the List
-// //           if (item != null) {
-// //             //we read cos we need to get a snapshot of what is in the list already
-// //             final dataModel = ref.read(ItemModelProvider);
-// //             dataModel.add(item);
-// //           }
-// //         },
-// //         child: const Icon(Icons.add),
-// //       ),
-// //     );
-// //   }
-// // }
+//           //if item is avaible add it to the List
+//           if (item != null) {
+//             //we read cos we need to get a snapshot of what is in the list already
+//             final dataModel = ref.read(ItemModelProvider);
+//             dataModel.add(item);
+//           }
+//         },
+//         child: const Icon(Icons.add),
+//       ),
+//     );
+//   }
+// }
 
-// // // ///
-// // // //
-// // // //
-// // // //
-// // // //
-// // // //
+// // ///
+// // //
+// // //
+// // //
+// // //
+// // //
 
-// // // class to for creation of Items
-// // @immutable
-// // class Item {
-// //   final String name;
-// //   final int unit;
-// //   final String uuid;
+// // class to for creation of Items
+// @immutable
+// class Item {
+//   final String name;
+//   final int unit;
+//   final String uuid;
 
-// //   Item({required this.name, required this.unit, String? uuid})
-// //       : uuid = uuid ?? const Uuid().v4();
+//   Item({required this.name, required this.unit, String? uuid})
+//       : uuid = uuid ?? const Uuid().v4();
 
-// //   //function to update an item - A subtype of the Parent class
-// //   Item updated([String? name, int? unit]) => Item(
-// //         name: name ?? this.name,
-// //         unit: unit ?? this.unit,
-// //         uuid: uuid,
-// //       );
+//   //function to update an item - A subtype of the Parent class
+//   Item updated([String? name, int? unit]) => Item(
+//         name: name ?? this.name,
+//         unit: unit ?? this.unit,
+//         uuid: uuid,
+//       );
 
-// //   //get the display UI name
-// //   String get displayName => "$name $unit unit(s)";
+//   //get the display UI name
+//   String get displayName => "$name $unit unit(s)";
 
-// //   //to compare and make sure the object is unique - NECCESSARY : helps us to update stuff
-// //   //the operator checks the uuid property of the "other" object to see if its equal to the object being compared too
-// //   //covariant specifies that the "other" can be a subtype of the object being compared - "ChatGPT"
+//   //to compare and make sure the object is unique - NECCESSARY : helps us to update stuff
+//   //the operator checks the uuid property of the "other" object to see if its equal to the object being compared too
+//   //covariant specifies that the "other" can be a subtype of the object being compared - "ChatGPT"
 
-// //   @override
-// //   bool operator ==(covariant Item other) => uuid == other.uuid;
+//   @override
+//   bool operator ==(covariant Item other) => uuid == other.uuid;
 
-// //   //needed by the compare operator
-// //   @override
-// //   // TODO: implement hashCode
-// //   int get hashCode => super.hashCode;
+//   //needed by the compare operator
+//   @override
+//   // TODO: implement hashCode
+//   int get hashCode => super.hashCode;
 
-// //   // @override
-// //   // int get hashcode => uuid.hashCode;
+//   // @override
+//   // int get hashcode => uuid.hashCode;
 
-// //   //check if this is necessary - NOT NECESSARY
-// //   //returning to String method for debugging, logging or display purposes
+//   //check if this is necessary - NOT NECESSARY
+//   //returning to String method for debugging, logging or display purposes
 
-// //   //@override
-// //   //String toString() => "Item(name: $name, unit: $unit, uuid : $uuid)";
+//   //@override
+//   //String toString() => "Item(name: $name, unit: $unit, uuid : $uuid)";
 
-// // }
+// }
 
-// // ///************************************//
+// ///************************************//
 
-// // //ChangeNotifierProvider to pass data mutable data through our App / interact with the ItemDataModel
-// // final ItemModelProvider = ChangeNotifierProvider<ItemDataModel>((ref) {
-// //   return ItemDataModel();
-// // });
+// //ChangeNotifierProvider to pass data mutable data through our App / interact with the ItemDataModel
+// final ItemModelProvider = ChangeNotifierProvider<ItemDataModel>((ref) {
+//   return ItemDataModel();
+// });
 
-// // //ChangeNotifier class to help us add and modify to our List
-// // class ItemDataModel extends ChangeNotifier {
-// //   //Hold the list of Individual Item Objects
+// //ChangeNotifier class to help us add and modify to our List
+// class ItemDataModel extends ChangeNotifier {
+//   //Hold the list of Individual Item Objects
 
-// //   final List<Item> _item = [
-// //     Item(name: "Rifle", unit: 20),
-// //   ];
+//   final List<Item> _item = [
+//     Item(name: "Rifle", unit: 20),
+//   ];
 
-// //   int get itemAmount => _item.length;
+//   int get itemAmount => _item.length;
 
-// //   //getter for the List that cant be modified but can be added too
-// //   UnmodifiableListView get item => UnmodifiableListView(_item);
+//   //getter for the List that cant be modified but can be added too
+//   UnmodifiableListView get item => UnmodifiableListView(_item);
 
-// //   //Add a item to the List
-// //   void add(Item item) {
-// //     _item.add(item);
-// //     //print("from add funtion::::::::::::::::::::::::::::::::::::::::::::$_item");
-// //     notifyListeners();
-// //   }
+//   //Add a item to the List
+//   void add(Item item) {
+//     _item.add(item);
+//     //print("from add funtion::::::::::::::::::::::::::::::::::::::::::::$_item");
+//     notifyListeners();
+//   }
 
-// //   void update(Item updatedItem) {
-// //     //To update an item we have check if the item exist to first locate the item
-// //     //Get the Index - Check the "item" List to see if the passed item has been indexed already
-// //     //returns a number as the "index"
-// //     final index = _item.indexOf(updatedItem);
-// //     //get the item from the index
-// //     final oldItem = _item[index];
+//   void update(Item updatedItem) {
+//     //To update an item we have check if the item exist to first locate the item
+//     //Get the Index - Check the "item" List to see if the passed item has been indexed already
+//     //returns a number as the "index"
+//     final index = _item.indexOf(updatedItem);
+//     //get the item from the index
+//     final oldItem = _item[index];
 
-// //     //compare both values -then update the previous value
-// //     if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
-// //       _item[index] = oldItem.updated(
-// //         updatedItem.name,
-// //         updatedItem.unit,
-// //       );
-// //       notifyListeners();
-// //     }
-// //   }
-// // }
+//     //compare both values -then update the previous value
+//     if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
+//       _item[index] = oldItem.updated(
+//         updatedItem.name,
+//         updatedItem.unit,
+//       );
+//       notifyListeners();
+//     }
+//   }
+// }
 
-// // //*******************************************************//
+// //*******************************************************//
 
-// // //creating the dialog function used by the ListTile and FAB
-// // final nameController = TextEditingController();
-// // final unitController = TextEditingController();
+// //creating the dialog function used by the ListTile and FAB
+// final nameController = TextEditingController();
+// final unitController = TextEditingController();
 
-// // //showDialog needs ctx and
-// // //also existing item is needed when we need to update a item via the ListTile
-// // Future<Item?> createOrUpdateItemDialog(BuildContext context,
-// //     [Item? existingItem]) {
-// //   //Holds the value from Onchanged coming from text fields
-// //   String? name = existingItem?.name;
-// //   int? unit = existingItem?.unit;
+// //showDialog needs ctx and
+// //also existing item is needed when we need to update a item via the ListTile
+// Future<Item?> createOrUpdateItemDialog(BuildContext context,
+//     [Item? existingItem]) {
+//   //Holds the value from Onchanged coming from text fields
+//   String? name = existingItem?.name;
+//   int? unit = existingItem?.unit;
 
-// //   //Assigning values to the controllers
-// //   nameController.text = name ?? "";
-// //   unitController.text = unit?.toString() ?? "";
+//   //Assigning values to the controllers
+//   nameController.text = name ?? "";
+//   unitController.text = unit?.toString() ?? "";
 
-// //   return showDialog<Item?>(
-// //       context: context,
-// //       builder: (context) {
-// //         return AlertDialog(
-// //           content: Column(
-// //             mainAxisSize: MainAxisSize.min,
-// //             children: [
-// //               TextField(
-// //                 controller: nameController,
-// //                 decoration: const InputDecoration(hintText: "Enter name here"),
-// //                 onChanged: ((value) {
-// //                   name = value; //pass the value from text field into name
-// //                 }),
-// //               ),
-// //               TextField(
-// //                 controller: unitController,
-// //                 decoration: const InputDecoration(
-// //                     hintText: "Enter amount of items here"),
-// //                 onChanged: ((value) {
-// //                   unit = int.tryParse(value);
-// //                 }),
-// //               ),
-// //             ],
-// //           ),
-// //           actions: [
-// //             TextButton(
-// //               child: const Text("Cancel"),
-// //               onPressed: () {
-// //                 Navigator.of(context).pop();
-// //               },
-// //             ),
-// //             TextButton(
-// //               child: const Text("Save"),
-// //               onPressed: () {
-// //                 //verify text fields are not empty before saving
-// //                 if (name != null && unit != null) {
-// //                   //pass in the values directly to pop the scren
-// //                   // Navigator.of(context).pop(Item(name: name!, unit: unit!));
-// //                   if (existingItem != null) {
-// //                     //if an item existed ; update it
-// //                     final newItem = existingItem.updated(
-// //                       name,
-// //                       unit,
-// //                     );
-// //                     Navigator.of(context).pop(newItem);
-// //                   } else {
-// //                     Navigator.of(context).pop(Item(name: name!, unit: unit!));
-// //                     //or longer route - uncomment this
-// //                     //print(":::::::::::::::::::::::::::::$newItem");
-// //                     //final newItem = Item(name: name!, unit: unit!);
-// //                     //Navigator.of(context).pop(newItem);
+//   return showDialog<Item?>(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               TextField(
+//                 controller: nameController,
+//                 decoration: const InputDecoration(hintText: "Enter name here"),
+//                 onChanged: ((value) {
+//                   name = value; //pass the value from text field into name
+//                 }),
+//               ),
+//               // TextField(
+//               //   controller: unitController,
+//               //   decoration: const InputDecoration(
+//               //       hintText: "Enter amount of items here"),
+//               //   onChanged: ((value) {
+//               //     unit = int.tryParse(value);
+//               //   }),
+//               // ),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               child: const Text("Cancel"),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//             TextButton(
+//               child: const Text("Save"),
+//               onPressed: () {
+//                 //verify text fields are not empty before saving
+//                 if (name != null && unit != null) {
+//                   //pass in the values directly to pop the scren
+//                   // Navigator.of(context).pop(Item(name: name!, unit: unit!));
+//                   if (existingItem != null) {
+//                     //if an item existed ; update it
+//                     final newItem = existingItem.updated(
+//                       name,
+//                       unit,
+//                     );
+//                     Navigator.of(context).pop(newItem);
+//                   } else {
+//                     Navigator.of(context).pop(Item(name: name!, unit: unit!));
+//                     //or longer route - uncomment this
+//                     //print(":::::::::::::::::::::::::::::$newItem");
+//                     //final newItem = Item(name: name!, unit: unit!);
+//                     //Navigator.of(context).pop(newItem);
 
-// //                   }
-// //                 } else {
-// //                   ScaffoldMessenger.of(context).showSnackBar(
-// //                     const SnackBar(
-// //                       duration: Duration(seconds: 1),
-// //                       backgroundColor: Colors.red,
-// //                       content: Text("Fill in the fields"),
-// //                     ),
-// //                   );
-// //                   // Navigator.of(context).pop();
-// //                 }
-// //               },
-// //             ),
-// //           ],
-// //         );
-// //       });
-// // }
+//                   }
+//                 } else {
+//                   ScaffoldMessenger.of(context).showSnackBar(
+//                     const SnackBar(
+//                       duration: Duration(seconds: 1),
+//                       backgroundColor: Colors.red,
+//                       content: Text("Fill in the fields"),
+//                     ),
+//                   );
+//                   // Navigator.of(context).pop();
+//                 }
+//               },
+//             ),
+//           ],
+//         );
+//       });
+// }
 
 
 
