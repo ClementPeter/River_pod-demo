@@ -35,7 +35,7 @@ class FutureProviderPage extends ConsumerWidget {
             children: [
               Center(
                 //handle the FutureProvider changes with .when
-                child: suggestionReference.when(data: ((data) {
+                child: suggestionReference.when(data: ((data) { 
                   return Text(
                     data.activity!,
                     style: Theme.of(context).textTheme.headline5,

@@ -2,16 +2,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/models/product.dart';
 
 //Create a provider for StateNotifierProvider - with autoDispose modifier
+//autoDispose returns oi
 final cartStateNotifierProvider =
     StateNotifierProvider.autoDispose<CartStateNotifier, List<Product>>((ref) {
-  return CartStateNotifier();
+  return CartStateNotifier([]);
 });
-
 
 //State notifier is more preferred to Change Provider Notifier
 class CartStateNotifier extends StateNotifier<List<Product>> {
+  CartStateNotifier(super.state);
+
   //super helps  define the initial state of our object : super[->empty List<-]
-  CartStateNotifier() : super([]);
+  // CartStateNotifier() : super([]);
 
   addProduct(Product product) {
     state = [...state, product];

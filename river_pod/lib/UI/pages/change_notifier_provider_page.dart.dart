@@ -21,7 +21,7 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
         actions: [
           Stack(
             alignment: Alignment.center,
-            children: [             
+            children: [
               IconButton(
                 onPressed: () {
                   showDialog(
@@ -48,9 +48,7 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
                           actions: [
                             TextButton(
                               onPressed: (() {
-                                ref
-                                    .watch(cartNotifierProvider.notifier)
-                                    .clear();
+                                ref.watch(cartNotifierProvider).clear();
                               }),
                               child: const Text("Clear"),
                             )
@@ -70,7 +68,7 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
                     color: Colors.red,
                     shape: BoxShape.circle,
                   ),
-                  // constraints:                      const BoxConstraints(minHeight: 16, minWidth: 16),
+                  // constraints:const BoxConstraints(minHeight: 16, minWidth: 16),
                   child: Center(
                     child: Text(
                       cartNotifier.cart.length
@@ -99,18 +97,27 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
                   title: Text(product.title),
                   subtitle: Text(product.description),
                   trailing: IconButton(
-                    onPressed: () {},
-                    icon: IconButton(
-                      onPressed: () {
-                        //.read is more ideal here than .watch
-                        //cos we dont need to listen to addProduct method in cartNotifier.dart
-                        //.watch triggers a rebuild of the Icon which is expensive in terms of App performance
-                        ref
-                            .read(cartNotifierProvider.notifier)
-                            .addProduct(product);
-                      },
-                      icon: const Icon(Icons.add_shopping_cart),
-                    ),
+                    icon: const Icon(Icons.add_shopping_cart),
+                    onPressed: () {
+                      //.read is more ideal here than .watch
+                      //cos we dont need to listen to addProduct method in cartNotifier.dart
+                      //.watch triggers a rebuild of the Icon which is expensive in terms of App performance
+                      ref
+                          .read(cartNotifierProvider.notifier)
+                          .addProduct(product);
+                    },
+                    // onPressed: () {},
+                    // icon: IconButton(
+                    //   onPressed: () {
+                    //     //.read is more ideal here than .watch
+                    //     //cos we dont need to listen to addProduct method in cartNotifier.dart
+                    //     //.watch triggers a rebuild of the Icon which is expensive in terms of App performance
+                    //     ref
+                    //         .read(cartNotifierProvider.notifier)
+                    //         .addProduct(product);
+                    //   },
+
+                    // ),
                   ),
                 );
               },

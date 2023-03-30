@@ -59,13 +59,13 @@ class ProviderPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "PROVIDER works by providing /supplying a READ-ONLY variable through out our APP",
+              "PROVIDER works by providing / supplying a READ-ONLY variable through out our APP",
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
             Center(
               child: Text(
-                "This is the value in the provider ${ref.watch(valueProvider)}",
+                "This is the value in the provider ${ref.read(valueProvider)}",
                 style: Theme.of(context).textTheme.headline5,
               ),
             ),

@@ -77,7 +77,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // //STATEPROVIDER : a type of provider used to update changes in the value
 // //add AUTODISPOSE to refresh the provider on screen pop to default value of the provider
-final valueStateProvider = StateProvider.autoDispose<int>(((ref) => 50));
+//
+//
+ final valueStateProvider = StateProvider.autoDispose<int>(((ref) => 50));
 
 class StateProviderPage extends ConsumerWidget {
   const StateProviderPage({this.color, super.key});
@@ -85,8 +87,12 @@ class StateProviderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final value = ref.watch(
-        valueStateProvider); //returns the value by the provider and rebuild if the value changes
+    //.watch : returns the value by the provider and rebuild if the value changes
+
+    final value = ref.watch(valueStateProvider);
+    //
+
+    //final value = ref.read(valueStateProvider);
 
     //.LISTEN : method to listen to provider help and perform specific action based on listened value
 

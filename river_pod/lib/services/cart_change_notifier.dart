@@ -25,4 +25,4 @@ class CartNotifier extends ChangeNotifier {
     _cart.clear();
     notifyListeners();
   }
-}
+} 
