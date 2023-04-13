@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:river_pod/UI/pages/change_notifier_provider_page.dart.dart';
-import 'package:river_pod/UI/pages/future_provider_page.dart.dart';
-import 'package:river_pod/UI/pages/provider_page.dart.dart';
-import 'package:river_pod/UI/pages/state_notifier_provider_page.dart.dart';
-import 'package:river_pod/UI/pages/state_provider_page.dart.dart';
-import 'package:river_pod/UI/pages/stream_provider_page.dart.dart';
-import 'package:river_pod/UI/widgets/reusableButton.dart';
+import 'package:river_pod/views/pages/change_notifier_provider_page.dart.dart';
+import 'package:river_pod/views/pages/future_provider_page.dart.dart';
+import 'package:river_pod/views/pages/provider_page.dart.dart';
+import 'package:river_pod/views/pages/state_notifier_provider_page.dart.dart';
+import 'package:river_pod/views/pages/state_provider_page.dart.dart';
+import 'package:river_pod/views/pages/stream_provider_page.dart.dart';
+import 'package:river_pod/views/widgets/reusableButton.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
