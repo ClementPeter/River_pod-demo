@@ -46,7 +46,7 @@ class CustomTextFormField extends StatelessWidget {
       this.hintText,
       // this.borderColor = AppColors.black,
       // this.focusedBorderColor = AppColors.primaryColor,
-       this.enabledBorderColor = Colors.black,
+      this.enabledBorderColor = Colors.black,
       // this.fillColor = AppColors.white,
       this.filled = true,
       this.hasPrefixIcon = false,
@@ -62,9 +62,8 @@ class CustomTextFormField extends StatelessWidget {
       this.validator,
       this.inputFormatters,
       this.controller,
-     this.label,
-      this.labelColor
-      });
+      this.label,
+      this.labelColor});
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +79,7 @@ class CustomTextFormField extends StatelessWidget {
               // padding: EdgeInsets.only(bottom: heightSizer(5, context)),
               child: Text(label!,
                   style: TextStyle(
-                    fontSize: 17,
-                    color: labelColor ?? Colors.lightBlue
-                  )),
+                      fontSize: 17, color: labelColor ?? Colors.lightBlue)),
             ),
           TextFormField(
             readOnly: readOnly ?? false,
@@ -116,7 +113,7 @@ class CustomTextFormField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide: BorderSide(
-                  color: Colors.red,
+                  color: Colors.black,
                   width: borderWidth,
                   style: borderStyle,
                 ),
@@ -129,8 +126,8 @@ class CustomTextFormField extends StatelessWidget {
                   ),
               hintText: hintText,
               hintStyle: hintTextStyle,
-              filled: filled,
-              fillColor: Colors.blueAccent,
+              // filled: filled,
+              // fillColor: Color.fromARGB(41, 68, 137, 255),
             ),
             obscureText: obscured,
           ),
