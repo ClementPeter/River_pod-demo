@@ -1046,23 +1046,23 @@
 //     notifyListeners();
 //   }
 
-  // void update(Item updatedItem) {
-  //   //To update an item we have check if the item exist to first locate the item
-  //   //Get the Index - Check the "item" List to see if the passed item has been indexed already
-  //   //returns a number as the "index"
-  //   final index = _item.indexOf(updatedItem);
-  //   //get the item from the index
-  //   final oldItem = _item[index];
+// void update(Item updatedItem) {
+//   //To update an item we have check if the item exist to first locate the item
+//   //Get the Index - Check the "item" List to see if the passed item has been indexed already
+//   //returns a number as the "index"
+//   final index = _item.indexOf(updatedItem);
+//   //get the item from the index
+//   final oldItem = _item[index];
 
-  //   //compare both values -then update the previous value
-  //   if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
-  //     _item[index] = oldItem.updated(
-  //       updatedItem.name,
-  //       updatedItem.unit,
-  //     );
-  //     notifyListeners();
-  //   }
-  // }
+//   //compare both values -then update the previous value
+//   if (oldItem.name != updatedItem.name || oldItem.unit != updatedItem.unit) {
+//     _item[index] = oldItem.updated(
+//       updatedItem.name,
+//       updatedItem.unit,
+//     );
+//     notifyListeners();
+//   }
+// }
 //}
 
 // //*******************************************************//
@@ -1153,9 +1153,6 @@
 //       });
 // }
 
-
-
-
 //
 //
 //
@@ -1197,6 +1194,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:river_pod_snip/text_form.dart';
 
 // //::::::::::::::::::LOGIC ::::::::::::::::::::::://
 
@@ -1208,9 +1206,9 @@ class Film {
   final bool isFavourite;
 
   const Film({
-     this.id,
-     this.title,
-     this.description,
+    this.id,
+    this.title,
+    this.description,
     required this.isFavourite,
   });
 
@@ -1281,17 +1279,15 @@ class FilmsNotifier extends StateNotifier<List<Film>> {
     //check through the contents in the state and if the id is the same
     //in order to replace it in "state" which is  a List of things
 
-    state = state.map(
-      (thisFilm) => thisFilm.id == film.id
-        ? thisFilm.copyWith(isFavourite: isFavourite)
-        : thisFilm
-    ).toList();
-
-     
+    state = state
+        .map((thisFilm) => thisFilm.id == film.id
+            ? thisFilm.copyWith(isFavourite: isFavourite)
+            : thisFilm)
+        .toList();
   }
 }
 
-//"allFilmsProvider" provides 
+//"allFilmsProvider" provides
 final allFilmsProvider =
     StateNotifierProvider<FilmsNotifier, List<Film>>((ref) => FilmsNotifier());
 
@@ -1337,8 +1333,7 @@ class FilmList extends ConsumerWidget {
               : const Icon(Icons.favorite_border);
           return ListTile(
             title: Text(film.id!),
-            subtitle: Text(film.description!
-            ),
+            subtitle: Text(film.description!),
             trailing: IconButton(
               icon: favouriteIcon,
               onPressed: () {
@@ -1410,34 +1405,341 @@ class MyApp extends StatelessWidget {
 // //
 // //::::::::::::::::::MAIN APP BODY ::::::::::::::::::::::://
 
-class HomePage extends ConsumerWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
     //final currentDate = ref.watch(currentDateProvider);
-    return Scaffold(
+    String? selectedValue = "Choose a Netfrefvrework";
+    bool? isChecked = true;
+    return
+        // Scaffold(
+        //   appBar: AppBar(
+        //     title: const Text("Hooks Riverpod"),
+        //     centerTitle: true,
+        //   ),
+        //   body: Column(
+        //     children: [
+        //       const FilterWidget(),
+        //       Consumer(
+        //         builder: (context, ref, child) {
+        //           final filter = ref.watch(favouriteStatusProvider);
+        //           switch (filter) {
+        //             case FavouriteStatus.all:
+        //               return FilmList(provider: allFilmsProvider);
+        //             case FavouriteStatus.favourite:
+        //               return FilmList(provider: favoriteFilmProvider);
+        //             case FavouriteStatus.notFavourite:
+        //               return FilmList(provider: notfavoriteFilmProvider);
+        //           }
+        //           //  return ;
+        //         },
+        //       )
+        //     ],
+        //   ),
+        // );
+        Scaffold(
+      backgroundColor: Colors.white,
+      //key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text("Hooks Riverpod"),
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            // model.pop();
+            //model.navigateToBuyAirtime();
+          },
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+        ),
+        title: const Text(
+          'Airtime',
+          style: TextStyle(color: Colors.white),
+          // style: appBarTextStyle,
+          textAlign: TextAlign.center,
+        ),
         centerTitle: true,
+        elevation: 0.1,
       ),
       body: Column(
         children: [
-          const FilterWidget(),
-          Consumer(
-            builder: (context, ref, child) {
-              final filter = ref.watch(favouriteStatusProvider);
-              switch (filter) {
-                case FavouriteStatus.all:
-                  return FilmList(provider: allFilmsProvider);
-                case FavouriteStatus.favourite:
-                  return FilmList(provider: favoriteFilmProvider);
-                case FavouriteStatus.notFavourite:
-                  return FilmList(provider: notfavoriteFilmProvider);
-              }
-              //  return ;
-            },
-          )
+          // CustomTextFormField(
+          //   label: "Phone Nucccberer",
+          //   borderStyle: BorderStyle.solid,
+          //   textInputType: TextInputType.emailAddress,
+          //   // controller: phoneNumberController,
+          //   onChanged: (value) {},
+          //   //validator: ,
+          // ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                // color: Colors.ligh,
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                border: Border.all(),
+              ),
+              height: 65,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton<String>(
+                  // value: "Select Network",
+                  // autofocus: true,
+                  underline: Container(color: Colors.transparent),
+                  iconEnabledColor: Colors.black,
+                  dropdownColor: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  isExpanded: true,
+                  // disabledHint: Text("Choose a  Network"),
+                  // hint: const Text(
+                  //   "Choose a  Network",
+                  //   style: TextStyle(color: Colors.black),
+                  // ),
+                  onChanged: (value) {
+                    setState(() {
+                      // model.dropDownValue = value;
+                      selectedValue = value!;
+                      print("$selectedValue");
+                    });
+
+                    // selectedValue = value!;
+                    // print("$selectedValue");
+                  },
+                  items: [
+                    DropdownMenuItem(
+                      value: "Airtel",
+                      // child: Text("Airtel"),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: const [
+                              CircleAvatar(
+                                backgroundColor: Colors.red,
+                              ),
+                              SizedBox(width: 30),
+                              Text(
+                                "Airtel",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          // Row(
+                          //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Checkbox(
+                          //       onChanged: (value) {
+                          //         //setState
+                          //         isChecked = value!;
+                          //       },
+                          //       fillColor:
+                          //           MaterialStateProperty.resolveWith<Color>(
+                          //               (Set<MaterialState> states) {
+                          //         if (states.contains(MaterialState.disabled)) {
+                          //           return Colors.grey;
+                          //         }
+                          //         return Colors.red;
+                          //       }),
+                          //       //activeColor: Colors.red,
+                          //       value: isChecked,
+
+                          //       shape: const RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.all(
+                          //           Radius.circular(10.0),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // )
+                        ],
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "MTN",
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: const [
+                              CircleAvatar(
+                                backgroundColor: Colors.yellow,
+                              ),
+                              SizedBox(width: 30),
+                              Text(
+                                "MTN",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "GLO",
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: const [
+                              CircleAvatar(
+                                backgroundColor: Colors.green,
+                              ),
+                              SizedBox(width: 30),
+                              Text(
+                                "GLO",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: "9Mobile",
+                      onTap: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: const [
+                              CircleAvatar(
+                                backgroundColor: Colors.black,
+                              ),
+                              SizedBox(width: 30),
+                              Text(
+                                "9Mobile",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // DropdownMenuItem(
+                    //   value: "MTN",
+                    //   // child: Text("Airtel"),
+                    //   // child: Row(
+                    //   //   Text("Airtel"),
+                    //   //   Checkbox(value: true, onChanged: (value) {})
+                    //   // ]),
+                    //   child: ListTile(
+                    //     leading:
+                    //         const CircleAvatar(backgroundColor: Colors.yellow),
+                    //     title: const Text(
+                    //       "MTN",
+                    //       style: TextStyle(color: Colors.black),
+                    //     ),
+                    //     trailing: Checkbox(
+                    //       value: isChecked,
+                    //       onChanged: ((value) {
+                    //         isChecked = value!;
+                    //       }),
+                    //     ),
+                    //   ),
+                    // ),
+                    // DropdownMenuItem(
+                    //  , // value: "Airtel",
+                    //   // child: Text("oekokok"),
+                    //   // child: Row(children: [
+                    //   //   CircleAvatar(),
+                    //   //   Text("Airtel"),
+                    //   //   Checkbox(value: true, onChanged: (value) {})
+                    //   // ]),
+                    //   child: ListTile(
+                    //     leading: CircleAvatar(backgroundColor: Colors.yellow),
+                    //   ),
+                    // ),
+                    // DropdownMenuItem(
+                    //   //  value: "Airtel",
+                    //   // child: Text("oekokok"),
+                    //   // child: Row(children: [
+                    //   //   CircleAvatar(),
+                    //   //   Text("Airtel"),
+                    //   //   Checkbox(value: true, onChanged: (value) {})
+                    //   // ]),
+                    //   child: ListTile(
+                    //     leading: CircleAvatar(backgroundColor: Colors.green),
+                    //   ),
+                    // ),
+                    // DropdownMenuItem(
+                    //   value: "MTN",
+                    //   child: ListTile(
+                    //     leading: CircleAvatar(backgroundColor: Colors.yellow),
+                    //     title: Text("MTN"),
+                    //     trailing: Checkbox(
+                    //       value: false,
+                    //       onChanged: (value) {
+                    //         // setState(() {
+                    //         //   model.isChecked = value;
+                    //         // });
+                    //       },
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.all(
+                    //           Radius.circular(10.0),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   // child: Text("Airtime"),
+                    // ),
+                    // DropdownMenuItem(
+                    //   value: "GLO",
+                    //   child: ListTile(
+                    //     leading: CircleAvatar(backgroundColor: Colors.green),
+                    //     title: Text("GLO"),
+                    //     trailing: Checkbox(
+                    //       value: false,
+                    //       onChanged: (value) {
+                    //         // setState(() {
+                    //         //   model.isChecked = value;
+                    //         // });
+                    //       },
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.all(
+                    //           Radius.circular(10.0),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+
+                    //   // child: Text("Airtime"),
+                    // ),
+                    // DropdownMenuItem(
+                    //   value: "9Mobile",
+                    //   child: ListTile(
+                    //     leading: CircleAvatar(
+                    //       backgroundColor: Color(0xFF2F8D26),
+                    //     ),
+                    //     title: Text("9Mobile"),
+                    //     trailing: Checkbox(
+                    //       value: true,
+                    //       onChanged: (value) {
+                    //         // setState(() {
+                    //         //   model.isChecked = value;
+                    //         // });
+                    //       },
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.all(
+                    //           Radius.circular(10.0),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   // child: Text("Airtime"),
+                    // ),
+                    //  DropdownMenuItem(
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
