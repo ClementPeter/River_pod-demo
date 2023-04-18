@@ -1196,7 +1196,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:river_pod_snip/text_form.dart';
 
-// //::::::::::::::::::LOGIC ::::::::::::::::::::::://
+//::::::::::::::::::LOGIC::::::::::::::::::::::://
 
 //@immutable
 class Film {
@@ -1466,404 +1466,461 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         elevation: 0.1,
       ),
-      body: Column(
-        
-        children: [
-          // TextField(
-          //   decoration: InputDecoration(
-          //     labelText: 'Dog',
-          //     border: OutlineInputBorder(),
-          //     suffixIcon: DropdownButtonFormField(
-          //       value: selectedValue,
-          //       onChanged: (newValue) {
-          //         setState(() {
-          //           selectedValue = newValue!;
-          //         });
-          //       },
-          //       items: <String>['Dog', 'Cat', 'Tiger', 'Lion']
-          //           .map<DropdownMenuItem<String>>((String value) {
-          //         return DropdownMenuItem<String>(
-          //           value: value,
-          //           child: Text(value),
-          //         );
-          //       }).toList(),
-          //     ),
-          //   ),
-          // ),
-          TextField(
-              // label: "Phone Nucberer",
-              // borderStyle: BorderStyle.solid,
-              // textInputType: TextInputType.emailAddress,
-              // controller: phoneNumberController,
-              // onChanged: (value) {},
-              //validator: ,
-              // suffixIcon: const Icon(
-              //   Icons.arrow_downward,
-              //   size: 50,
-              //   color: Colors.black,
-              // ),
-              showCursor: false,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                //  enabledBorder: InputBorder.none,
-
-                // labelText: "Select an Item",
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
-                  //  borderRadius: BorderRadius.circular(30.0),
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: DropdownButtonFormField(
-                    //value: "Select Network",
-                    value: selectedValue,
-                    decoration: const InputDecoration(
-                      focusedBorder: InputBorder.none,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // TextField(
+            //   decoration: InputDecoration(
+            //     labelText: 'Dog',
+            //     border: OutlineInputBorder(),
+            //     suffixIcon: DropdownButtonFormField(
+            //       value: selectedValue,
+            //       onChanged: (newValue) {
+            //         setState(() {
+            //           selectedValue = newValue!;
+            //         });
+            //       },
+            //       items: <String>['Dog', 'Cat', 'Tiger', 'Lion']
+            //           .map<DropdownMenuItem<String>>((String value) {
+            //         return DropdownMenuItem<String>(
+            //           value: value,
+            //           child: Text(value),
+            //         );
+            //       }).toList(),
+            //     ),
+            //   ),
+            // ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+              child: TextField(
+                  // label: "Phone Nucberer",
+                  // borderStyle: BorderStyle.solid,
+                  // textInputType: TextInputType.emailAddress,
+                  // controller: phoneNumberController,
+                  // onChanged: (value) {},
+                  //validator: ,
+                  // suffixIcon: const Icon(
+                  //   Icons.arrow_downward,
+                  //   size: 50,
+                  //   color: Colors.black,
+                  // ),
+                  showCursor: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    labelText: "Choose a Network",
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: DropdownButtonFormField(
+                        value: selectedValue,
+                        decoration: const InputDecoration(
+                          focusedBorder: InputBorder.none,
+                        ),
 
-                    // autofocus: true,
-                    // underline: Container(color: Colors.transparent),
-                    iconEnabledColor: Colors.black,
-                    dropdownColor: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    isExpanded: true,
-                    // disabledHint: Text("Choose a  Network"),
-                    // hint: const Text(
-                    //   "Choose a  Network",
-                    //   style: TextStyle(color: Colors.black),
-                    // ),
-                    // icon: Icon(Icons.arrow_down, size: 20),
+                        // autofocus: true,
+                        // underline: Container(color: Colors.transparent),
+                        iconEnabledColor: Colors.black,
+                        dropdownColor: Colors.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                        isExpanded: true,
+                        // disabledHint: Text("Choose a  Network"),
+                        // hint: const Text(
+                        //   "Choose a  Network",
+                        //   style: TextStyle(color: Colors.black),
+                        // ),
+                        // icon: Icon(Icons.arrow_down, size: 20),
 
-                    onChanged: (newValue) {
-                      setState(() {
-                        selectedValue = newValue!;
-                      });
-                    },
-                    items: [
-                      DropdownMenuItem(
-                        value: "Airtel",
-                        onTap: () {
-                          print(":::Airtel Tapped::::");
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedValue = newValue!;
+                          });
                         },
-                        // child: Text("Airtel"),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: const [
-                                CircleAvatar(
-                                  backgroundColor: Colors.red,
+                        items: [
+                          DropdownMenuItem(
+                            value: "Airtel",
+                            onTap: () {
+                              print(":::Airtel Tapped::::");
+                            },
+                            // child: Text("Airtel"),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: const [
+                                    CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                    ),
+                                    SizedBox(width: 30),
+                                    Text(
+                                      "Airtel",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(width: 30),
-                                Text(
-                                  "Airtel",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ],
-                            ),
-                            // Row(
-                            //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     Checkbox(
-                            //       onChanged: (value) {
-                            //         //setState
-                            //         isChecked = value!;
-                            //       },
-                            //       fillColor:
-                            //           MaterialStateProperty.resolveWith<Color>(
-                            //               (Set<MaterialState> states) {
-                            //         if (states.contains(MaterialState.disabled)) {
-                            //           return Colors.grey;
-                            //         }
-                            //         return Colors.red;
-                            //       }),
-                            //       //activeColor: Colors.red,
-                            //       value: isChecked,
+                                // Row(
+                                //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Checkbox(
+                                //       onChanged: (value) {
+                                //         //setState
+                                //         isChecked = value!;
+                                //       },
+                                //       fillColor:
+                                //           MaterialStateProperty.resolveWith<Color>(
+                                //               (Set<MaterialState> states) {
+                                //         if (states.contains(MaterialState.disabled)) {
+                                //           return Colors.grey;
+                                //         }
+                                //         return Colors.red;
+                                //       }),
+                                //       //activeColor: Colors.red,
+                                //       value: isChecked,
 
-                            //       shape: const RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.all(
-                            //           Radius.circular(10.0),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // )
-                          ],
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "MTN",
-                        onTap: () {
-                          print(":::MTN Tapped::::");
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: const [
-                                CircleAvatar(
-                                  backgroundColor: Colors.yellow,
-                                ),
-                                SizedBox(width: 30),
-                                Text(
-                                  "MTN",
-                                  style: TextStyle(color: Colors.black),
+                                //       shape: const RoundedRectangleBorder(
+                                //         borderRadius: BorderRadius.all(
+                                //           Radius.circular(10.0),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // )
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: "MTN",
+                            onTap: () {
+                              print(":::MTN Tapped::::");
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: const [
+                                    CircleAvatar(
+                                      backgroundColor: Colors.yellow,
+                                    ),
+                                    SizedBox(width: 30),
+                                    Text(
+                                      "MTN",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "GLO",
-                        onTap: () {
-                          print(":::GLO Tapped::::");
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: const [
-                                CircleAvatar(
-                                  backgroundColor: Colors.green,
-                                ),
-                                SizedBox(width: 30),
-                                Text(
-                                  "GLO",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: "9Mobile",
-                        onTap: () {
-                          print(":::9 Mobile Tapped::::");
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: const [
-                                CircleAvatar(
-                                  backgroundColor: Colors.black,
-                                ),
-                                SizedBox(width: 30),
-                                Text(
-                                  "9Mobile",
-                                  style: TextStyle(color: Colors.black),
+                          ),
+                          DropdownMenuItem(
+                            value: "GLO",
+                            onTap: () {
+                              print(":::GLO Tapped::::");
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: const [
+                                    CircleAvatar(
+                                      backgroundColor: Colors.green,
+                                    ),
+                                    SizedBox(width: 30),
+                                    Text(
+                                      "GLO",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
+                          ),
+                          DropdownMenuItem(
+                            value: "9Mobile",
+                            onTap: () {
+                              print(":::9 Mobile Tapped::::");
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: const [
+                                    CircleAvatar(
+                                      backgroundColor: Colors.black,
+                                    ),
+                                    SizedBox(width: 30),
+                                    Text(
+                                      "9Mobile",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              )),
-          Container(
-            decoration: BoxDecoration(
-              // color: Colors.ligh,
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              border: Border.all(),
+                    ),
+                  )),
             ),
-            height: 65,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: DropdownButton(
-                //value: "Select Network",
-                value: selectedValue,
-                // autofocus: true,
-                underline: Container(color: Colors.transparent),
-                iconEnabledColor: Colors.black,
-                dropdownColor: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                isExpanded: true,
-                // disabledHint: Text("Choose a  Network"),
-                // hint: const Text(
-                //   "Choose a  Network",
-                //   style: TextStyle(color: Colors.black),
-                // ),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    // model.dropDownValue = value;
-                    selectedValue = newValue!;
-                    print("$selectedValue");
-                  });
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       // color: Colors.ligh,
+            //       borderRadius: const BorderRadius.all(Radius.circular(20)),
+            //       border: Border.all(),
+            //     ),
+            //     height: 65,
+            //     width: double.infinity,
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(10.0),
+            //       child: DropdownButton(
+            //         //value: "Select Network",
+            //         value: selectedValue,
+            //         // autofocus: true,
+            //         underline: Container(color: Colors.transparent),
+            //         iconEnabledColor: Colors.black,
+            //         dropdownColor: Colors.white,
+            //         borderRadius: const BorderRadius.all(Radius.circular(10)),
+            //         isExpanded: true,
+            //         // disabledHint: Text("Choose a  Network"),
+            //         // hint: const Text(
+            //         //   "Choose a  Network",
+            //         //   style: TextStyle(color: Colors.black),
+            //         // ),
+            //         onChanged: (String? newValue) {
+            //           setState(() {
+            //             // model.dropDownValue = value;
+            //             selectedValue = newValue!;
+            //             print("$selectedValue");
+            //           });
 
-                  // selectedValue = value!;
-                  // print("$selectedValue");
-                },
-                // items: {"Airtel": "red" }.map((key, value) {
-                //   return  DropdownMenuItem(
-                //     child: Text("efed"),
-                //     )
-                // }).toList(),
-                // items: ["Airtel", "MTN", "Glo", "9Mobile"].map((network) {
-                //   // return Text("data");
-                //   return DropdownMenuItem(
-                //     value: network,
-                //     child: Text(
-                //       network,
-                //       style: const TextStyle(color: Colors.black),
-                //     ),
-                //   );
-                // }).toList()
-                //      items: {"Airtel": "red", "MTN": "yellow", "Glo": "green", "9Mobile": "black"}.map((network,value) {
+            //           // selectedValue = value!;
+            //           // print("$selectedValue");
+            //         },
+            //         // items: {"Airtel": "red" }.map((key, value) {
+            //         //   return  DropdownMenuItem(
+            //         //     child: Text("efed"),
+            //         //     )
+            //         // }).toList(),
+            //         // items: ["Airtel", "MTN", "Glo", "9Mobile"].map((network) {
+            //         //   // return Text("data");
+            //         //   return DropdownMenuItem(
+            //         //     value: network,
+            //         //     child: Text(
+            //         //       network,
+            //         //       style: const TextStyle(color: Colors.black),
+            //         //     ),
+            //         //   );
+            //         // }).toList()
+            //         //      items: {"Airtel": "red", "MTN": "yellow", "Glo": "green", "9Mobile": "black"}.map((network,value) {
 
-                //   return DropdownMenuItem(
-                //     value: network,
-                //     child: Text(
-                //       network,
-                //       style:  TextStyle(color: Colors.black),
-                //     ),
-                //   );
-                // }).toMap();
-                items: [
-                  DropdownMenuItem(
-                    value: "Airtel",
-                    onTap: () {
-                      print(":::Airtel Tapped::::");
-                    },
-                    // child: Text("Airtel"),
+            //         //   return DropdownMenuItem(
+            //         //     value: network,
+            //         //     child: Text(
+            //         //       network,
+            //         //       style:  TextStyle(color: Colors.black),
+            //         //     ),
+            //         //   );
+            //         // }).toMap();
+            //         items: [
+            //           DropdownMenuItem(
+            //             value: "Airtel",
+            //             onTap: () {
+            //               print(":::Airtel Tapped::::");
+            //             },
+            //             // child: Text("Airtel"),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Row(
+            //                   children: const [
+            //                     CircleAvatar(
+            //                       backgroundColor: Colors.red,
+            //                     ),
+            //                     SizedBox(width: 30),
+            //                     Text(
+            //                       "Airtel",
+            //                       style: TextStyle(color: Colors.black),
+            //                     ),
+            //                   ],
+            //                 ),
+            //                 // Row(
+            //                 //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                 //   children: [
+            //                 //     Checkbox(
+            //                 //       onChanged: (value) {
+            //                 //         //setState
+            //                 //         isChecked = value!;
+            //                 //       },
+            //                 //       fillColor:
+            //                 //           MaterialStateProperty.resolveWith<Color>(
+            //                 //               (Set<MaterialState> states) {
+            //                 //         if (states.contains(MaterialState.disabled)) {
+            //                 //           return Colors.grey;
+            //                 //         }
+            //                 //         return Colors.red;
+            //                 //       }),
+            //                 //       //activeColor: Colors.red,
+            //                 //       value: isChecked,
+
+            //                 //       shape: const RoundedRectangleBorder(
+            //                 //         borderRadius: BorderRadius.all(
+            //                 //           Radius.circular(10.0),
+            //                 //         ),
+            //                 //       ),
+            //                 //     ),
+            //                 //   ],
+            //                 // )
+            //               ],
+            //             ),
+            //           ),
+            //           DropdownMenuItem(
+            //             value: "MTN",
+            //             onTap: () {
+            //               print(":::MTN Tapped::::");
+            //             },
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Row(
+            //                   children: const [
+            //                     CircleAvatar(
+            //                       backgroundColor: Colors.yellow,
+            //                     ),
+            //                     SizedBox(width: 30),
+            //                     Text(
+            //                       "MTN",
+            //                       style: TextStyle(color: Colors.black),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //           DropdownMenuItem(
+            //             value: "GLO",
+            //             onTap: () {
+            //               print(":::GLO Tapped::::");
+            //             },
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Row(
+            //                   children: const [
+            //                     CircleAvatar(
+            //                       backgroundColor: Colors.green,
+            //                     ),
+            //                     SizedBox(width: 30),
+            //                     Text(
+            //                       "GLO",
+            //                       style: TextStyle(color: Colors.black),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //           DropdownMenuItem(
+            //             value: "9Mobile",
+            //             onTap: () {
+            //               print(":::9 Mobile Tapped::::");
+            //             },
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Row(
+            //                   children: const [
+            //                     CircleAvatar(
+            //                       backgroundColor: Colors.black,
+            //                     ),
+            //                     SizedBox(width: 30),
+            //                     Text(
+            //                       "9Mobile",
+            //                       style: TextStyle(color: Colors.black),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+              child: CustomTextFormField(
+                label: "Phone Number",
+                borderStyle: BorderStyle.solid,
+                textInputType: TextInputType.emailAddress,
+                //controller: phoneNumberController,
+                onChanged: (value) {},
+                // validator: ,
+                suffixIcon: const Icon(
+                  Icons.arrow_downward,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            // Spacer(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 30, vertical: 10.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: double.infinity,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFF9A0536),
+                      border: Border.all(
+                        color: Color(0xFF9A0536),
+                      )),
+                  child: Center(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            CircleAvatar(
-                              backgroundColor: Colors.red,
-                            ),
-                            SizedBox(width: 30),
-                            Text(
-                              "Airtel",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          "Proceed",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "CircularStd",
+                          ),
                         ),
-                        // Row(
-                        //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     Checkbox(
-                        //       onChanged: (value) {
-                        //         //setState
-                        //         isChecked = value!;
-                        //       },
-                        //       fillColor:
-                        //           MaterialStateProperty.resolveWith<Color>(
-                        //               (Set<MaterialState> states) {
-                        //         if (states.contains(MaterialState.disabled)) {
-                        //           return Colors.grey;
-                        //         }
-                        //         return Colors.red;
-                        //       }),
-                        //       //activeColor: Colors.red,
-                        //       value: isChecked,
-
-                        //       shape: const RoundedRectangleBorder(
-                        //         borderRadius: BorderRadius.all(
-                        //           Radius.circular(10.0),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
+                        SizedBox(
+                          width: 10,
+                        ),
+                        // Icon(
+                        //   icon,
+                        //   color: iconColor,
+                        //   size: 14,
                         // )
                       ],
                     ),
                   ),
-                  DropdownMenuItem(
-                    value: "MTN",
-                    onTap: () {
-                      print(":::MTN Tapped::::");
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            CircleAvatar(
-                              backgroundColor: Colors.yellow,
-                            ),
-                            SizedBox(width: 30),
-                            Text(
-                              "MTN",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  DropdownMenuItem(
-                    value: "GLO",
-                    onTap: () {
-                      print(":::GLO Tapped::::");
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            CircleAvatar(
-                              backgroundColor: Colors.green,
-                            ),
-                            SizedBox(width: 30),
-                            Text(
-                              "GLO",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  DropdownMenuItem(
-                    value: "9Mobile",
-                    onTap: () {
-                      print(":::9 Mobile Tapped::::");
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: const [
-                            CircleAvatar(
-                              backgroundColor: Colors.black,
-                            ),
-                            SizedBox(width: 30),
-                            Text(
-                              "9Mobile",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-          CustomTextFormField(
-            label: "Phone Nucberer",
-            borderStyle: BorderStyle.solid,
-            textInputType: TextInputType.emailAddress,
-            //controller: phoneNumberController,
-            onChanged: (value) {},
-            // validator: ,
-            suffixIcon: const Icon(
-              Icons.arrow_downward,
-              size: 50,
-              color: Colors.black,
-            ),
-          )
-        ],
+            SizedBox(
+              height: 80,
+            )
+          ],
+        ),
       ),
     );
   }
