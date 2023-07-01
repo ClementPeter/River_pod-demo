@@ -35,7 +35,7 @@ class StreamProviderPage extends ConsumerWidget {
                 ),
                 Text(
                   data.toString(),
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
             );
@@ -43,7 +43,7 @@ class StreamProviderPage extends ConsumerWidget {
           error: (error, _) {
             return Text(
               error.toString(),
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             );
           },
