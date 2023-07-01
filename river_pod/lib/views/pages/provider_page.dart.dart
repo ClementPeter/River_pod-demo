@@ -24,7 +24,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //           return Center(
 //             child: Text(
 //               "This is the value in the provider ${ref.watch(valueProvider)}",
-//               style: Theme.of(context).textTheme.headline5,
+//               style: Theme.of(context).textTheme.headlineSmall,
 //             ),
 
 //           );
@@ -66,14 +66,8 @@ class ProviderPage extends ConsumerWidget {
             Center(
               child: Text(
                 "This is the value in the provider ${ref.read(valueProvider)}",
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                ref.read(valueProvider);
-              },
-              child: const Text("Increment"),
             ),
           ],
         ),
