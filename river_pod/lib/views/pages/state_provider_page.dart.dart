@@ -79,7 +79,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // //add AUTODISPOSE to refresh the provider on screen pop to default value of the provider
 //
 //
- final valueStateProvider = StateProvider.autoDispose<int>(((ref) => 50));
+final valueStateProvider = StateProvider.autoDispose<int>(((ref) => 50));
 
 class StateProviderPage extends ConsumerWidget {
   const StateProviderPage({this.color, super.key});
@@ -97,10 +97,10 @@ class StateProviderPage extends ConsumerWidget {
     //.LISTEN : method to listen to provider help and perform specific action based on listened value
 
     ref.listen<int>(valueStateProvider, (previous, current) {
-      if (current == 65) {
+      if (current == 55) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("The provider is listening and the value is 65"),
+            content: Text("The provider is listening and the value is 55"),
           ),
         );
       }
