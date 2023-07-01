@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/models/product.dart';
 
 //Create a provider for StateNotifierProvider - with autoDispose modifier
-//autoDispose returns oi
+//autoDispose returns an empty state when the screen is disposed
 final cartStateNotifierProvider =
     StateNotifierProvider.autoDispose<CartStateNotifier, List<Product>>((ref) {
   return CartStateNotifier([]);
