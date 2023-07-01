@@ -31,7 +31,7 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
                           title: Center(
                               child: Text(
                             "Cart",
-                            style: Theme.of(context).textTheme.headline5,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           )),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -68,7 +68,6 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
                     color: Colors.red,
                     shape: BoxShape.circle,
                   ),
-                  // constraints:const BoxConstraints(minHeight: 16, minWidth: 16),
                   child: Center(
                     child: Text(
                       cartNotifier.cart.length
@@ -113,10 +112,9 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
                     //     //cos we dont need to listen to addProduct method in cartNotifier.dart
                     //     //.watch triggers a rebuild of the Icon which is expensive in terms of App performance
                     //     ref
-                    //         .read(cartNotifierProvider.notifier)
+                    //         .watch(cartNotifierProvider.notifier)
                     //         .addProduct(product);
                     //   },
-
                     // ),
                   ),
                 );

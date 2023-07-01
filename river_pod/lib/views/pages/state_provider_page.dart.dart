@@ -123,7 +123,7 @@ class StateProviderPage extends ConsumerWidget {
             child: Text(
               "This is the value from State Provider \n $value \n and the value can be updated since the provider type is of STATE PROVIDER",
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           const SizedBox(height: 20),
