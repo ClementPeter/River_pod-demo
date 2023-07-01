@@ -41,7 +41,8 @@ class ChangeNotifierProviderPage extends ConsumerWidget {
                               const SizedBox(height: 15),
                               Text(
                                 "Total \$${cartNotifier.cart.fold(0, (sum, element) => sum + element.price.toInt())}",
-                                style: Theme.of(context).textTheme.headline5,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
                               ),
                             ],
                           ),
