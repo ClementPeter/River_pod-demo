@@ -69,12 +69,12 @@ class ProviderPage extends ConsumerWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
             ),
-              ElevatedButton(
-            onPressed: () {
-              ref.read(valueProvider);
-            },
-            child: const Text("Increment"),
-          ),
+            ElevatedButton(
+              onPressed: () {
+                ref.read(valueProvider);
+              },
+              child: const Text("Increment"),
+            ),
           ],
         ),
       ),
