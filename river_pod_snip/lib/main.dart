@@ -1414,9 +1414,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    //final currentDate = ref.watch(currentDateProvider);
-    String selectedValue = "Airtel";
-    bool? isChecked = true;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Hooks Riverpod"),

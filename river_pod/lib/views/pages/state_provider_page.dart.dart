@@ -88,10 +88,9 @@ class StateProviderPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //.watch : returns the value by the provider and rebuild if the value changes
-
     final value = ref.watch(valueStateProvider);
-    //
 
+    //.read : literally reads the set value in the provider and does not update the UI
     //final value = ref.read(valueStateProvider);
 
     //.LISTEN : method to listen to provider help and perform specific action based on listened value
