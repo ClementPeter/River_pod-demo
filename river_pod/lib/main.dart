@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:river_pod/home.dart';
 
+/*RIVERPOD-TEMI AJIBOYE*/
+
+// 1. Provider_Page - Default Provider, Read Only
+// 2. State_Provider_Page : StateProvider, A type of provider used to update changes in the value
+// 3. Future_Provider_Page : Future Provider is used to resolve future based
+// 4.
+// 5.
+// 6.
+
 void main() {
   runApp(
     const

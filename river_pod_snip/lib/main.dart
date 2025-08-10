@@ -127,33 +127,33 @@
 ////::::::PROJECT 2::::::DEMO APP 2 using StateNotiferProvider
 //Building 7 MINI projects with Riverpod and Hooks Riverpod -  Counter App with Riverpod
 
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:flutter/material.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     const ProviderScope(
+//       child: MyApp(),
+//     ),
+//   );
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Riverpod projects',
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.dark,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Riverpod projects',
+//       darkTheme: ThemeData.dark(),
+//       themeMode: ThemeMode.dark,
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: const HomePage(),
+//     );
+//   }
+// }
 
 // /****NOT IN USE***/
 // //Create an extension to perform addition on optional/nullabe int/double
@@ -188,67 +188,67 @@ class MyApp extends StatelessWidget {
 
 ///////////StateNotifier Class and StateNotifierProvider  - USED TO UPDATE State///////////
 //StateNotifierProvider is the provider that allows us to access and use StateNotifier class
-final counterStateNotifierProvider = StateNotifierProvider((ref) {
-  return Counter();
-});
+// final counterStateNotifierProvider = StateNotifierProvider((ref) {
+//   return Counter();
+// });
 
-class Counter extends StateNotifier {
-  //We first need to pass an initial value to the super constructor, to define the initial state of our object.
-  Counter() : super(null);
+// class Counter extends StateNotifier {
+//   //We first need to pass an initial value to the super constructor, to define the initial state of our object.
+//   Counter() : super(null);
 
-  void increment() {
-    state = state == null ? 1 : state + 1;
-  }
-}
+//   void increment() {
+//     state = state == null ? 1 : state + 1;
+//   }
+// }
 
-class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+// class HomePage extends ConsumerWidget {
+//   const HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    //testIt();
-    ///DONT DO THIS BELOW!
-    ///final counter =  ref.watch(counterStateNotifierProvider);
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     //testIt();
+//     ///DONT DO THIS BELOW!
+//     ///final counter =  ref.watch(counterStateNotifierProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        //Wrapping the text in Consumer widget prevents us from using the parent "ref"
-        //which rebuilds the entire scaffold when the counter value changes
-        title: Consumer(
-          builder: ((context, ref, child) {
-            final counter = ref.watch(counterStateNotifierProvider);
-            final text = counter == null ? "Press to begin" : "$counter";
-            return Text(text.toString());
-          }),
-        ),
+//     return Scaffold(
+//       appBar: AppBar(
+//         //Wrapping the text in Consumer widget prevents us from using the parent "ref"
+//         //which rebuilds the entire scaffold when the counter value changes
+//         title: Consumer(
+//           builder: ((context, ref, child) {
+//             final counter = ref.watch(counterStateNotifierProvider);
+//             final text = counter == null ? "Press to begin" : "$counter";
+//             return Text(text.toString());
+//           }),
+//         ),
 
-        centerTitle: true,
-      ),
+//         centerTitle: true,
+//       ),
 
-      //mini docked FAB
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FloatingActionButton(
-          onPressed: ref.read(counterStateNotifierProvider.notifier).increment,
-          // onPressed: () {
-          //   //Works-but Doesn't rebuild the (FAB) widget everytime it is clicked - SAFER TO USE
-          //   //NOTIFIER - helps us to accesss properties/function inside the provider
-          //   ref.read(counterStateNotifierProvider.notifier).increment();
+//       //mini docked FAB
+//       floatingActionButton: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: FloatingActionButton(
+//           onPressed: ref.read(counterStateNotifierProvider.notifier).increment,
+//           // onPressed: () {
+//           //   //Works-but Doesn't rebuild the (FAB) widget everytime it is clicked - SAFER TO USE
+//           //   //NOTIFIER - helps us to accesss properties/function inside the provider
+//           //   ref.read(counterStateNotifierProvider.notifier).increment();
 
-          //   //OR
+//           //   //OR
 
-          //   // ref
-          //   //     .watch(counterStateNotifierProvider.notifier)
-          //   //     .increment(); //Also Works -but rebuild the (FAB) widget everytime - CAN AFFECT APP PERFORMANCE IN LARGE PROJECT
-          // },
-          child: const Icon(Icons.add),
-        ),
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-    );
-  }
-}
+//           //   // ref
+//           //   //     .watch(counterStateNotifierProvider.notifier)
+//           //   //     .increment(); //Also Works -but rebuild the (FAB) widget everytime - CAN AFFECT APP PERFORMANCE IN LARGE PROJECT
+//           // },
+//           child: const Icon(Icons.add),
+//         ),
+//       ),
+//       floatingActionButtonLocation:
+//           FloatingActionButtonLocation.miniCenterDocked,
+//     );
+//   }
+// }
 
 //
 //
@@ -624,171 +624,170 @@ class HomePage extends ConsumerWidget {
 //
 //
 // // DEMO Example 5 Name and Age App
-// import 'dart:collection';
-// import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'package:uuid/uuid.dart';
+import 'dart:collection';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
-// void main() {
-//   runApp(
-//     const ProviderScope(
-//       child: MyApp(),
-//     ),
-//   );
-// }
+void main() {
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
+}
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Riverpod projects',
-//       darkTheme: ThemeData.dark(),
-//       themeMode: ThemeMode.dark,
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: const HomePage(),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Riverpod projects',
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.dark,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const HomePage(),
+    );
+  }
+}
 
 // //Not wrappping myApp with consumer is cos we only want to rebuild selected parts in our App
-// class HomePage extends ConsumerWidget {
-//   const HomePage({super.key});
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
 
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("HomePage"),
-//         centerTitle: true,
-//       ),
-//       //
-//       body: Consumer(
-//         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-//           //
-//           final dataModel = ref.watch(ItemModelProvider);
-//           return ListView.builder(
-//             itemCount: dataModel.count,
-//             itemBuilder: (context, index) {
-//               final item = dataModel.people[index];
-//               return ListTile(
-//                 title: GestureDetector(
-//                   onTap: () async {
-//                     //Updating the inventory on click of the the ListTile
-//                     final updatedItem = await createOrUpdateItemDialog(
-//                       context,
-//                       item,
-//                     );
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("HomePage"),
+        centerTitle: true,
+      ),
+      //
+      body: Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          //
+          final dataModel = ref.watch(ItemModelProvider);
+          return ListView.builder(
+            itemCount: dataModel.count,
+            itemBuilder: (context, index) {
+              final item = dataModel.people[index];
+              return ListTile(
+                title: GestureDetector(
+                  onTap: () async {
+                    //Updating the inventory on click of the the ListTile
+                    final updatedItem = await createOrUpdateItemDialog(
+                      context,
+                      item,
+                    );
 
-//                     if (updatedItem != null) {
-//                       dataModel.update(updatedItem);
-//                     }
-//                   },
-//                   child: Text(
-//                     item.displayName,
-//                   ),
-//                 ),
-//               );
-//             },
-//           );
-//         },
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () async {
-//           final item = await createOrUpdateItemDialog(context);
-//           //print(item);
-//           if (item != null) {
-//             //check if this is necessary - needed to create a refeerence for ItemModelProvider ChangeNotifier
-//             final dataModel = ref.read(ItemModelProvider);
-//             dataModel.add(item);
-//           }
-//         },
-//         child: const Icon(Icons.add),
-//       ),
-//     );
-//   }
-// }
+                    if (updatedItem != null) {
+                      dataModel.update(updatedItem);
+                    }
+                  },
+                  child: Text(
+                    item.displayName,
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final item = await createOrUpdateItemDialog(context);
+          //print(item);
+          if (item != null) {
+            //check if this is necessary - needed to create a refeerence for ItemModelProvider ChangeNotifier
+            final dataModel = ref.read(ItemModelProvider);
+            dataModel.add(item);
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
 
 // //creating an immutable class
-// @immutable
-// class Item {
-//   final String? name;
-//   final int? age;
-//   final String? uuid;
+@immutable
+class Item {
+  final String? name;
+  final int? age;
+  final String? uuid;
 
-//   Item({
-//     required this.name,
-//     required this.age,
-//     String? uuid,
-//   }) : uuid = uuid ?? const Uuid().v4();
+  Item({
+    required this.name,
+    required this.age,
+    String? uuid,
+  }) : uuid = uuid ?? const Uuid().v4();
 
-//   //function used to update name and age
-//   Item updated([String? name, int? age]) => Item(
-//         name: name ?? this.name,
-//         age: age ?? this.age,
-//         uuid: uuid,
-//       );
+  //function used to update name and age
+  Item updated([String? name, int? age]) => Item(
+        name: name ?? this.name,
+        age: age ?? this.age,
+        uuid: uuid,
+      );
 
-//   String get displayName => "$name $age year(s) old";
+  String get displayName => "$name $age year(s) old";
 
-//   //  //to make sure the object is unique
-//   //   @override
-//   //   bool operator ==(Object other) {
-//   //     if (identical(this, other)) return true;
+  //  //to make sure the object is unique
+  //   @override
+  //   bool operator ==(Object other) {
+  //     if (identical(this, other)) return true;
 
-//   //     return other is Item &&
-//   //       other.uuid == uuid;
-//   //   }
-//   //create an equatable to check the hash
-//   @override
-//   bool operator ==(covariant Item other) => uuid == other.uuid;
+  //     return other is Item &&
+  //       other.uuid == uuid;
+  //   }
+  //create an equatable to check the hash
+  @override
+  bool operator ==(covariant Item other) => uuid == other.uuid;
 
-//   @override
-//   int get hashCode => uuid.hashCode;
+  @override
+  int get hashCode => uuid.hashCode;
 
-//   //the toString method
-//   @override
-//   String toString() =>
-//       "Item(name: $name, age: $age, uuid: $uuid,)"; //check if this is necessary
-// }
+  //the toString method
+  @override
+  String toString() =>
+      "Item(name: $name, age: $age, uuid: $uuid,)"; //Helps us to see the object instance when logged
+}
 
 // //ChangeNotifierProvider to provide the Data Model class through our app
-// final ItemModelProvider = ChangeNotifierProvider((ref) {
-//   return DataModel();
-// });
+final ItemModelProvider = ChangeNotifierProvider((ref) {
+  return DataModel();
+});
 
 // //Creating the class our ChangeNotifier would listen to - this class would interact with Item Class to add and update  items
-// class DataModel extends ChangeNotifier {
-//   final List<Item> _item = []; //Hold the list of Indivicual Item Objects
-//   int get count => _item.length;
+class DataModel extends ChangeNotifier {
+  final List<Item> _item = []; //Hold the list of Indivicual Item Objects
+  int get count => _item.length;
 
-//   //Exposing the List so that it cant be changed
-//   UnmodifiableListView<Item> get people => UnmodifiableListView(_item);
+  //Exposing the List so that it cant be changed
+  UnmodifiableListView<Item> get people => UnmodifiableListView(_item);
 
-//   //Add a item to the List
-//   void add(Item item) {
-//     _item.add(item);
-//     notifyListeners();
-//   }
+  //Add a item to the List
+  void add(Item item) {
+    _item.add(item);
+    notifyListeners();
+  }
 
-// //Modify and existing Item in a List
-//   void update(Item updatedItem) {
-//     //before we update a item we check if the item already exist in the _item List
-//     //finds the index item we want to update
-//     final index = _item.indexOf(updatedItem);
-//     final oldItem = _item[index]; //get the actual  item we want to update
+  //Modify and existing Item in a List
+  void update(Item updatedItem) {
+    //before we update a item we check if the item already exist in the _item List
+    //finds the index item we want to update
+    final index = _item.indexOf(updatedItem);
+    final oldItem = _item[index]; //get the actual  item we want to update
 
-//     //compare the new values of the item with the old values of the item then modify the old
-//     if (oldItem.name != updatedItem.name ||
-//         oldItem.age != updatedItem.age) {
-//       _item[index] = oldItem.updated(updatedItem.name, updatedItem.age);
-//       notifyListeners();
-//     }
-//   }
-// }
+    //compare the new values of the item with the old values of the item then modify the old
+    if (oldItem.name != updatedItem.name || oldItem.age != updatedItem.age) {
+      _item[index] = oldItem.updated(updatedItem.name, updatedItem.age);
+      notifyListeners();
+    }
+  }
+}
 
 // /////***********Creating Dialog to be called by FAB ***********/////////
 // //showDialog needs ctx and existing item is needed when we need to update a item
@@ -796,91 +795,90 @@ class HomePage extends ConsumerWidget {
 // //
 // //textfield controllers
 // //issue found
-// // TextEditingController itemNameController = TextEditingController();
-// // TextEditingController itemNumberController = TextEditingController();
+// TextEditingController itemNameController = TextEditingController();
+// TextEditingController itemNumberController = TextEditingController();
 
-// final nameController = TextEditingController(); //issue fixed
-// final ageController = TextEditingController();
+final nameController = TextEditingController(); //issue fixed
+final ageController = TextEditingController();
 
-// Future<Item?> createOrUpdateItemDialog(
-//   BuildContext context, [
-//   Item? existingItem,
-// ]) {
-//   //Holds the value from Onchanged coming from text fields
-//   String? name = existingItem?.name;
-//   int? age = existingItem?.age;
+Future<Item?> createOrUpdateItemDialog(
+  BuildContext context, [
+  Item? existingItem,
+]) {
+  //Holds the value from Onchanged coming from text fields
+  String? name = existingItem?.name;
+  int? age = existingItem?.age;
 
-//   //update the textfield controller with the existing values of name and age if we have it
-//   // - Does the AutoFill if user exist alreadt
-//   nameController.text = name ?? "";
-//   ageController.text = age?.toString() ?? "";
+  //update the textfield controller with the existing values of name and age if we have it
+  // - Does the AutoFill if user exist alreadt
+  nameController.text = name ?? "";
+  ageController.text = age?.toString() ?? "";
 
-//   return showDialog<Item?>(
-//       context: context,
-//       builder: (context) {
-//         return AlertDialog(
-//           title: const Text("Create a Item"),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               TextField(
-//                 controller: nameController,
-//                 decoration: const InputDecoration(hintText: "Enter name here"),
-//                 onChanged: ((value) {
-//                   name = value; //pass the value from text field into name
-//                 }),
-//               ),
-//               TextField(
-//                 controller: ageController,
-//                 decoration: const InputDecoration(hintText: "Enter age here"),
-//                 onChanged: ((value) {
-//                   age = int.tryParse(value);
-//                 }),
-//               ),
-//             ],
-//           ),
-//           actions: [
-//             TextButton(
-//               child: const Text("Cancel"),
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//             TextButton(
-//               child: const Text("Save"),
-//               onPressed: () {
-//                 //save when both textfield are filled
-//                 if (name != null && age != null) {
-//                   //if there is an existing item
-//                   if (existingItem != null) {
-//                     print(
-//                         ":::::::::::::::::::::::::::::::::::::$existingItem");
-//                     final newItem = existingItem.updated(name, age);
-//                     Navigator.of(context).pop(newItem);
-//                     // Navigator.pop(context, newItem);
-//                   } else {
-//                     //Navigator.pop(context, Item(name: name, age: age));
-//                     Navigator.of(context).pop(Item(name: name, age: age));
-//                   }
-//                   //  Navigator.of(context).pop(Item(name: name, age: age));
-//                   // Navigator.of(context).push(Item(name: name, age: age));
-//                 } else {
-//                   //show a prompt
-//                   //Navigator.of(context).pop();
-//                   ScaffoldMessenger.of(context).showSnackBar(
-//                     const SnackBar(
-//                       duration: Duration(seconds: 1),
-//                       backgroundColor: Colors.red,
-//                       content: Text("Fill in the fields"),
-//                     ),
-//                   );
-//                 }
-//               },
-//             ),
-//           ],
-//         );
-//       });
-// }
+  return showDialog<Item?>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Create a Item"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(hintText: "Enter name here"),
+                onChanged: ((value) {
+                  name = value; //pass the value from text field into name
+                }),
+              ),
+              TextField(
+                controller: ageController,
+                decoration: const InputDecoration(hintText: "Enter age here"),
+                onChanged: ((value) {
+                  age = int.tryParse(value);
+                }),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text("Save"),
+              onPressed: () {
+                //save when both textfield are filled
+                if (name != null && age != null) {
+                  //if there is an existing item
+                  if (existingItem != null) {
+                    print(":::::::::::::::::::::::::::::::::::::$existingItem");
+                    final newItem = existingItem.updated(name, age);
+                    Navigator.of(context).pop(newItem);
+                    // Navigator.pop(context, newItem);
+                  } else {
+                    //Navigator.pop(context, Item(name: name, age: age));
+                    Navigator.of(context).pop(Item(name: name, age: age));
+                  }
+                  //  Navigator.of(context).pop(Item(name: name, age: age));
+                  // Navigator.of(context).push(Item(name: name, age: age));
+                } else {
+                  //show a prompt
+                  //Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(seconds: 1),
+                      backgroundColor: Colors.red,
+                      content: Text("Fill in the fields"),
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      });
+}
 
 // //
 // //

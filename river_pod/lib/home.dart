@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return ProviderPage(
+                      return const ProviderPage(
                         color: Colors.amber,
                       );
                     },
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return StateProviderPage(
+                      return const StateProviderPage(
                         color: Colors.blue,
                       );
                     },
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return FutureProviderPage(
+                      return const FutureProviderPage(
                         color: Colors.red,
                       );
                     },
@@ -118,20 +118,21 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 10),
             ReusableButton(
-              text: "State  Notifier Provider",
+              text: "State Notifier Provider",
               color: Colors.purple,
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const StateNotifierProviderPage(color: Colors.purple);
+                      return const StateNotifierProviderPage(
+                        color: Colors.purple,
+                      );
                     },
                   ),
                 );
               },
             ),
-            
           ],
         ),
       ),

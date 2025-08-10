@@ -11,7 +11,7 @@ class StateNotifierProviderPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //Watching the provider and rebuilding if there is any chnages
+    //Watching the provider and rebuilding if there is any changes
     final cart = ref.watch(cartStateNotifierProvider);
 
     return Scaffold(
@@ -33,7 +33,7 @@ class StateNotifierProviderPage extends ConsumerWidget {
                           title: Center(
                               child: Text(
                             "Cart",
-                            style: Theme.of(context).textTheme.headline5,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           )),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -42,7 +42,8 @@ class StateNotifierProviderPage extends ConsumerWidget {
                               const SizedBox(height: 15),
                               Text(
                                 "Total \$${cart.fold(0, (sum, element) => sum + element.price.toInt())}",
-                                style: Theme.of(context).textTheme.headline5,
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
                               ),
                             ],
                           ),

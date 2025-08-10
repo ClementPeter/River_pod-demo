@@ -76,7 +76,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // //Better/ Preferred way of passing value to STATEPROVIDER - by extending ConsumerWidget
 
 // //STATEPROVIDER : a type of provider used to update changes in the value
-// //add AUTODISPOSE to refresh the provider on screen pop to default value of the provider
+// //add .AUTODISPOSE to refresh the provider on screen pop to default value of the provider
 //
 //
 final valueStateProvider = StateProvider.autoDispose<int>(((ref) => 50));

@@ -13,7 +13,7 @@ class Product {
   final double price;
 }
 
-//Product lIST holding Product
+//Product List holding Product
 final List<Product> productList = [
   Product(
     id: "1",
